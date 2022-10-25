@@ -1,70 +1,102 @@
-# Getting Started with Create React App
+# DnDs"R"Us
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Be it player or dungeon master, keep track of your characters and campaigns at Dnds"R"Us!
 
-## Available Scripts
+## Description
 
-In the project directory, you can run:
+A MERN stack application to allow individual users to create characters, customize them and keep track with your on going campaign.
 
-### `npm start`
+## Wireframe
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Landing page - Users first screen when routing to the website
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+![wireframe](/public/landing%20page.JPG)
 
-### `npm test`
+- My Characters - All the users characters displayed on cards.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+![wireframe](/public/my%20characters%20screen.JPG)
 
-### `npm run build`
+- Register Form - Styled form for the sign up page
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+![wireframe](/public/register%20page.JPG)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Character Sheet - View a specific characters information listed out in character sheet style
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+![wireframe](/public/Character%20Sheet.JPG)
 
-### `npm run eject`
+## ERD
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+![ERD](/public/ERD.JPG)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## RESTful Routes
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Users
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+| HTTP METHOD (_Verb_) | URL (_Nouns_) | CRUD | Response                                                   | Notes |
+| -------------------- | ------------- | ---- | ---------------------------------------------------------- | ----- |
+| POST                 | /users        | C    | create new user                                            |       |
+| GET                  | /users/:id    | R    | show user's profile including their character card list    |       |
+| POST                 | /users/login  | C    | accept a payload of form data and use it to login the user |       |
 
-## Learn More
+### Characters
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+| HTTP METHOD (_Verb_) | URL (_Nouns_)                     | CRUD | Response                                                         | Notes |
+| -------------------- | --------------------------------- | ---- | ---------------------------------------------------------------- | ----- |
+| POST                 | /users/:id                        | C    | create new character                                             |       |
+| GET                  | /users/:id/:characterId           | R    | Display specific chracter information in a character sheet style |       |
+| PUT                  | /users/:id/:characterId           | U    | edit the character informtation                                  |       |
+| DELETE               | /users/:id/:characterId           | D    | Delete specific character                                        |       |
+| POST                 | /users/:id/:characterId/          | C    | create a new weapon in character db                              |       |
+| POST                 | /users/:id/:characterId/          | C    | create a new spell in character db                               |       |
+| PUT                  | /users/:id/:characterId/:weaponId | U    | edit a weapon in character db                                    |       |
+| PUT                  | /users/:id/:characterId/:weaponId | U    | edit a spell in character db                                     |       |
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## User Stories
 
-### Code Splitting
+- As an unregistered user, I would like to sign up with email and password.
+- As a registered user, I would like to sign in with email and password.
+- As a signed in user, I would like to change password.
+- As a signed in user, I would like to sign out.
+- As a signed in user, I would like to create a character with starting informational questions.
+- As a signed in user, I would like to update my character in real time by editing the character sheet.
+- As a signed in user, I would like to delete my character.
+- As a signed in user, I would like to see all my characters in my profile and then select the card to view that character.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## MVP
 
-### Analyzing the Bundle Size
+### Tuesday
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- Set up react client with routes
+- Set up mongoose server
+- Set up user authentication with password encryption
+- Set up CRUD functionality for user
 
-### Making a Progressive Web App
+### Wednesday
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- Set up CRUD functionality for character and its subdocs
+- Create forms to use CRUD functionality on the front-end
 
-### Advanced Configuration
+### Thursday
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+- Add content to Landing Page, Profile, NavBar
+- Show a profile of character cards that link to character sheet
 
-### Deployment
+### Friday, Saturday, Sunday
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+- Clean up bugs
+- Start implimenting SCSS
+- Start Styling the character sheet page.
+- Add Styling to other pages and NavBar.
+- Prepare for presentation
 
-### `npm run build` fails to minify
+## Stretch Goals
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Working on Styling
+- Refactoring the database for future plans to add a dungeon master side to the application.
+
+## Tech Stack
+
+- MERN (Mongoose, Express, React, Node.js)
+- Axios
+- CSS: SCSS
+- HTML
