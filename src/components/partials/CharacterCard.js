@@ -1,7 +1,11 @@
-export default function CharacterCard(){
+export default function CharacterCard(props){
     return(
         <div>
-            CharacterCard Partial
+            Name: {props.character.name}{' | '}
+            Race: {props.character.race}{' | '}
+            Class: {props.character.class}{' | '}
+            Subclass: {props.character.subclass}{' | '}
+            Level: {props.character.level}
         </div>
     )
 }

@@ -45,7 +45,7 @@ const handleSubmit = async e =>{
 
 // render a navigate component if user is already logged in 
     if (currentUser){
-        return <Navigate to = "/" />
+        return <Navigate to = "/mycharacters" />
     }
     return(
         <div>

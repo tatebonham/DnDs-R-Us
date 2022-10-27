@@ -29,7 +29,7 @@ export default function Login( {currentUser, setCurrentUser}){
             const decoded= jwt_decode(token)
             // set the user in app state
             setCurrentUser(decoded)
-            navigate('/MyCharacters')
+            navigate('/mycharacters')
         }catch(err){
             console.warn(err)
             if(err.response === 400 ){
@@ -39,7 +39,7 @@ export default function Login( {currentUser, setCurrentUser}){
     }
     // conditionally render a navigate component
     if (currentUser){
-        return <Navigate to="/user/profile" />
+        return <Navigate to="/mycharacters" />
     }
 
 

@@ -29,7 +29,7 @@ function App() {
               <Route path='/' element={<Home/>} />
               <Route path='/login' element={<Login currentUser={currentUser} setCurrentUser={setCurrentUser} />} />
               <Route path='/register' element={<Register currentUser={currentUser} setCurrentUser={setCurrentUser}/>} />
-              <Route path='/mycharacters' element={currentUser ? <MyCharacters currentUser={currentUser} setCurrentUser={setCurrentUser}/> : <Navigate to='login' />} />
+              <Route path='/mycharacters' element={currentUser ? <MyCharacters currentUser={currentUser} setCurrentUser={setCurrentUser}/> : <Navigate to='/login' />} />
               <Route path='/charactersheet/:id' element={<CharacterSheet currentUser={currentUser} setCurrentUser={setCurrentUser}/>} />
             </Routes>
             {/* <Footer/> */}
