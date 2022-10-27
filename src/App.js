@@ -1,4 +1,6 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
+import { useState , useEffect} from 'react';
+import jwt_decode from "jwt-decode";
 
 import NavBar from './components/partials/NavBar'
 import Home from './components/pages/Home'
@@ -9,16 +11,26 @@ import MyCharacters from './components/pages/MyCharacters'
 import CharacterSheet from './components/pages/CharacterSheet'
 
 function App() {
+  const [currentUser,setCurrentUser] =useState (null)
+    useEffect(() => {
+    const token = localStorage.getItem('jwt')
+    if (token) {
+      setCurrentUser(jwt_decode(token))
+    } else {
+      setCurrentUser(null)
+    }
+  }, [])
+
   return (
     <div>
           <BrowserRouter>
-            <NavBar/>
+            <NavBar currentUser={currentUser} setCurrentUser={setCurrentUser}/>
             <Routes>
               <Route path='/' element={<Home/>} />
-              <Route path='/login' element={<Login/>} />
-              <Route path='/register' element={<Register/>} />
-              <Route path='/mycharacters' element={<MyCharacters/>} />
-              <Route path='/charactersheet' element={<CharacterSheet/>} />
+              <Route path='/login' element={<Login currentUser={currentUser} setCurrentUser={setCurrentUser} />} />
+              <Route path='/register' element={<Register currentUser={currentUser} setCurrentUser={setCurrentUser}/>} />
+              <Route path='/mycharacters' element={currentUser ? <MyCharacters currentUser={currentUser} setCurrentUser={setCurrentUser}/> : <Navigate to='login' />} />
+              <Route path='/charactersheet/:id' element={<CharacterSheet currentUser={currentUser} setCurrentUser={setCurrentUser}/>} />
             </Routes>
             {/* <Footer/> */}
           </BrowserRouter>
