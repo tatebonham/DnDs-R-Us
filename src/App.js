@@ -1,36 +1,27 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import NavBar from './components/partials/NavBar'
-import Home from './components/partials/Home'
-import Login from './components/partials/Login'
-import Register from './components/partials/Register'
-import Footer from './components/partials/Footer'
-import MyCharacters from './components/partials/MyCharacters'
-import CharacterSheet from './components/partials/CharacterSheet'
+import Home from './components/pages/Home'
+import Login from './components/pages/Login'
+import Register from './components/pages/Register'
+// import Footer from './components/partials/Footer'
+import MyCharacters from './components/pages/MyCharacters'
+import CharacterSheet from './components/pages/CharacterSheet'
 
 function App() {
   return (
     <div>
-      <header>
-
-      </header>
-      <main>
-        <div><NavBar/></div>
-        <body>
           <BrowserRouter>
+            <NavBar/>
             <Routes>
-              <Route to='/' element={<Home.js/>} />
-              <Route to='/login' element={<Login.js/>} />
-              <Route to='/register' element={<Register.js/>} />
-              <Route to='/mycharacters' element={<MyCharacters.js/>} />
-              <Route to='/charactersheet' element={<CharacterSheet.js/>} />
+              <Route path='/' element={<Home/>} />
+              <Route path='/login' element={<Login/>} />
+              <Route path='/register' element={<Register/>} />
+              <Route path='/mycharacters' element={<MyCharacters/>} />
+              <Route path='/charactersheet' element={<CharacterSheet/>} />
             </Routes>
+            {/* <Footer/> */}
           </BrowserRouter>
-        </body>
-        <footer>
-          <Footer/>
-        </footer>
-      </main>
     </div>
   );
 }
