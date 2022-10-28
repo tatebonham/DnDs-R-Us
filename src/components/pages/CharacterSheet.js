@@ -100,6 +100,22 @@ export default function CharacterSheet(){
         setCharacter()
     }, [form])
 
+    const proficiencyBonus = () =>{
+        if(form.level >= 1 && form.level <= 4){
+            return '+2'
+        } else if(form.level >= 5 && form.level <= 8){
+            return '+3'
+        } else if(form.level >= 5 && form.level <= 8){
+            return '+3'
+        } else if(form.level >= 9 && form.level <= 12){
+            return '+4'
+        } else if(form.level >= 13 && form.level <= 16){
+            return '+5'
+        } else if(form.level >= 17 && form.level <= 20){
+            return '+6'
+        }
+    }
+
    
     
     return(
@@ -227,6 +243,15 @@ export default function CharacterSheet(){
                         />
                 </div>
                 <div className='skills'>
+                        <label htmlFor='inpiration'><h2>inpiration: </h2></label>
+                        <input 
+                            type='number'
+                            id='inpiration'
+                            value={form.inpiration}
+                            placeholder='inpiration'
+                            onChange={e => setForm ({ ...form, inpiration: e.target.value})}
+                        />
+                        <h3>ProficiencyBonus: {proficiencyBonus()}</h3>
 
                 </div>
                 
