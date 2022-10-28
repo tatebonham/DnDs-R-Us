@@ -34,6 +34,7 @@ export default function MyCharacters(){
             <div key={character._id}>
                 index: {index}
                 <CharacterCard character={character} />
+                <Link to={`/charactersheet/${character._id}`}  >Character Sheet</Link>
             </div>
         )
     })
