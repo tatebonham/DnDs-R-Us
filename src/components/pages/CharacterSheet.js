@@ -2,6 +2,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import Weapons from '../partials/Weapons'
+import Spells from '../partials/Spells'
 
 export default function CharacterSheet(){
     const [weaponState, setWeaponState] = useState({})
@@ -83,8 +84,8 @@ export default function CharacterSheet(){
         console.log('Empty Dependancy')
     }, [])
 
+    
     const setCharacter = async e => {
-        e.preventDefault()
         try {
             const token = localStorage.getItem('jwt')
             const options = {
@@ -109,6 +110,9 @@ export default function CharacterSheet(){
         }
     }
     
+    useEffect(  () => {
+        setCharacter()
+    }, [form])
 
     const handleSubmit = async e => {   
         e.preventDefault()
@@ -150,12 +154,24 @@ export default function CharacterSheet(){
             return form.weapons.map((weapon, i) =>{
                 return(
                     <div key={weapon._id} >
-                        <Weapons getCharacter={getCharacter}  weapon={weapon} index={i} setWeaponState={setWeaponState} form={form} setForm={setForm} characterId={id} />
+                        <Weapons getCharacter={getCharacter}  weapon={weapon} index={i} characterId={id} />
                     </div>
                 
                 )
         })
-        
+    }}
+    
+    const spellsList = (level)=>{
+        if (form.spells !== undefined){
+            return form.spells.map((spell, i) =>{
+                if(level === spell.level){
+                    return(
+                        <div key={spell._id} >
+                            <Spells getCharacter={getCharacter}  spell={spell} index={i} characterId={id} />
+                        </div>
+                    )
+                }
+        })
     }}
     
     const deleteCharacter = async () =>{
@@ -426,6 +442,29 @@ export default function CharacterSheet(){
                 <button type='submit'>Add Weapon</button>
             </form>
             </div>  
+            <div>
+                <form>
+                    <div className='level-one-spells'>
+                        <img src={form.img_url} width={200} alt='Character Profile Picture' ></img>
+                        <label htmlFor='img_url'><h2>Level One Spells</h2></label>
+                        <input 
+                            type='number'
+                            id='onetotal'
+                            value={form.onetotal}
+                            placeholder='Character onetotal'
+                            onChange={e => setForm ({ ...form, onetotal: e.target.value})}
+                            />
+                        <input 
+                            type='number'
+                            id='oneremaining'
+                            value={form.oneremaining}
+                            placeholder='Character oneremaining'
+                            onChange={e => setForm ({ ...form, oneremaining: e.target.value})}
+                            />
+                        {spellsList(1)}
+                    </div>
+                </form>
+            </div>
                 
 
         </div>
