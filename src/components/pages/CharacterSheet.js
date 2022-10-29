@@ -4,6 +4,7 @@ import axios from 'axios'
 import Weapons from '../partials/Weapons'
 
 export default function CharacterSheet(){
+    const [weaponAdd, setWeaponAdd] = useState({})
     const [weaponForm, setWeaponForm] = useState({
         name: '',
         damage: '',
@@ -80,6 +81,37 @@ export default function CharacterSheet(){
 
     }, [])
     useEffect(() => {
+        const getCharacter = async () => {
+            try {
+                const token = localStorage.getItem('jwt')
+                const options = {
+                    headers: {
+                        'Authorization': token
+                    }
+                }
+                const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/users/characters/${id}`, options)
+                const character = response.data
+                console.log(character.weapons)
+                
+                setForm(character)
+                setWeaponForm({
+                    name: '',
+                    damage: '',
+                    type: '',
+                    note: ''
+                })
+            } catch (err) {
+                console.warn(err)
+                if(err.response) {
+                    setMsg(err.response.data.message)
+                }
+            }
+        }
+        getCharacter()
+
+    }, [weaponAdd])
+
+    useEffect(() => {
         const setCharacter = async () => {
             try {
                 const token = localStorage.getItem('jwt')
@@ -109,6 +141,7 @@ export default function CharacterSheet(){
 
     const handleSubmit = async e => {   
         e.preventDefault()
+        setWeaponAdd(form.weapons)
         try {
             const token = localStorage.getItem('jwt')
             const options = {
@@ -123,7 +156,9 @@ export default function CharacterSheet(){
                 setMsg(err.response.data.message)
             }
         }
+        
     }
+    
     const proficiencyBonus = () =>{
         if(form.level >= 1 && form.level <= 4){
             return '+2'
@@ -139,12 +174,19 @@ export default function CharacterSheet(){
             return '+6'
         }
     }
-    console.log(form.weapons)
-//    const weaponsList = form.weapons.map(weapon =>{
-//         return(
-//             <Weapons weapon={weapon} form={form} setForm={setForm} />
-//         )
-//    })
+    // console.log(form.weapons)
+    const weaponsList = ()=>{
+        if (form.weapons !== undefined){
+            return form.weapons.map(weapon =>{
+                return(
+                    <div key={weapon._id} >
+                        <Weapons  weapon={weapon} characterId={id} />
+                    </div>
+                
+                )
+        })
+        
+    }}
     
     return(
         <div className='grid-container'>
@@ -355,7 +397,7 @@ export default function CharacterSheet(){
                 </div>
             </form>
             <div className='weapons'>
-                {/* {weaponsList} */}
+                {weaponsList()}
                 <form onSubmit={handleSubmit} >
                 <input 
                     type='text'
