@@ -41,6 +41,7 @@ export default function MyCharacters(){
 
     return(
         <div>
+            <Link  to='/newcharacter'>Create a Character</Link>
             {msg}
             {characterList}
         </div>

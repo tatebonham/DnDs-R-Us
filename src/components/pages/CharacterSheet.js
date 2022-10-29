@@ -1,16 +1,17 @@
-import { useParams } from 'react-router-dom' 
+import { useParams, useNavigate } from 'react-router-dom' 
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import Weapons from '../partials/Weapons'
 
 export default function CharacterSheet(){
-    const [weaponAdd, setWeaponAdd] = useState({})
+    const [weaponState, setWeaponState] = useState({})
     const [weaponForm, setWeaponForm] = useState({
         name: '',
         damage: '',
         type: '',
         note: ''
     })
+    const navigate = useNavigate()
     const [msg, setMsg] = useState('')
     const [form, setForm] = useState({})
     const [stats, setStats] = useState({
@@ -47,101 +48,70 @@ export default function CharacterSheet(){
             return '+5'
         }
     }
-
-    useEffect(() => {
-        const getCharacter = async () => {
-            try {
-                const token = localStorage.getItem('jwt')
-                const options = {
-                    headers: {
-                        'Authorization': token
-                    }
-                }
-                const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/users/characters/${id}`, options)
-                const character = response.data
-                console.log(character.weapons)
-                
-                setForm(character)
-                setStats({
-                    strength: statBlock(character.strength),
-                    dexterity: statBlock(character.dexterity),
-                    constitution: statBlock(character.constitution),
-                    wisdom: statBlock(character.wisdom),
-                    intelligence: statBlock(character.intelligence),
-                    charisma: statBlock(character.charisma),
-                })
-            } catch (err) {
-                console.warn(err)
-                if(err.response) {
-                    setMsg(err.response.data.message)
+    const getCharacter = async () => {
+        try {
+            console.log('getCharacter')
+            const token = localStorage.getItem('jwt')
+            const options = {
+                headers: {
+                    'Authorization': token
                 }
             }
+            const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/users/characters/${id}`, options)
+            const character = response.data
+            console.log(character.weapons)
+            
+            setForm(character)
+            setStats({
+                strength: statBlock(character.strength),
+                dexterity: statBlock(character.dexterity),
+                constitution: statBlock(character.constitution),
+                wisdom: statBlock(character.wisdom),
+                intelligence: statBlock(character.intelligence),
+                charisma: statBlock(character.charisma),
+            })
+        } catch (err) {
+            console.warn(err)
+            if(err.response) {
+                setMsg(err.response.data.message)
+            }
         }
-        getCharacter()
+    }
 
+    useEffect(() => {
+        getCharacter()
+        console.log('Empty Dependancy')
     }, [])
-    useEffect(() => {
-        const getCharacter = async () => {
-            try {
-                const token = localStorage.getItem('jwt')
-                const options = {
-                    headers: {
-                        'Authorization': token
-                    }
-                }
-                const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/users/characters/${id}`, options)
-                const character = response.data
-                console.log(character.weapons)
-                
-                setForm(character)
-                setWeaponForm({
-                    name: '',
-                    damage: '',
-                    type: '',
-                    note: ''
-                })
-            } catch (err) {
-                console.warn(err)
-                if(err.response) {
-                    setMsg(err.response.data.message)
+
+    const setCharacter = async e => {
+        e.preventDefault()
+        try {
+            const token = localStorage.getItem('jwt')
+            const options = {
+                headers: {
+                    'Authorization': token
                 }
             }
-        }
-        getCharacter()
-
-    }, [weaponAdd])
-
-    useEffect(() => {
-        const setCharacter = async () => {
-            try {
-                const token = localStorage.getItem('jwt')
-                const options = {
-                    headers: {
-                        'Authorization': token
-                    }
-                }
-                setStats({
-                    strength: statBlock(Number(form.strength)),
-                    dexterity: statBlock(Number(form.dexterity)),
-                    constitution: statBlock(Number(form.constitution)),
-                    wisdom: statBlock(Number(form.wisdom)),
-                    intelligence: statBlock(Number(form.intelligence)),
-                    charisma: statBlock(Number(form.charisma)),
-                })
-                const response = await axios.put(`${process.env.REACT_APP_SERVER_URL}/users/characters/${id}`,form, options)
-            } catch (err) {
-                console.warn(err)
-                if(err.response) {
-                    setMsg(err.response.data.message)
-                }
+            setStats({
+                strength: statBlock(Number(form.strength)),
+                dexterity: statBlock(Number(form.dexterity)),
+                constitution: statBlock(Number(form.constitution)),
+                wisdom: statBlock(Number(form.wisdom)),
+                intelligence: statBlock(Number(form.intelligence)),
+                charisma: statBlock(Number(form.charisma)),
+            })
+            const response = await axios.put(`${process.env.REACT_APP_SERVER_URL}/users/characters/${id}`,form, options)
+        } catch (err) {
+            console.warn(err)
+            if(err.response) {
+                setMsg(err.response.data.message)
             }
         }
-        setCharacter()
-    }, [form])
+    }
+    
 
     const handleSubmit = async e => {   
         e.preventDefault()
-        setWeaponAdd(form.weapons)
         try {
             const token = localStorage.getItem('jwt')
             const options = {
@@ -156,7 +126,7 @@ export default function CharacterSheet(){
                 setMsg(err.response.data.message)
             }
         }
-        
+        getCharacter()
     }
     
     const proficiencyBonus = () =>{
@@ -177,10 +147,10 @@ export default function CharacterSheet(){
     // console.log(form.weapons)
     const weaponsList = ()=>{
         if (form.weapons !== undefined){
-            return form.weapons.map(weapon =>{
+            return form.weapons.map((weapon, i) =>{
                 return(
                     <div key={weapon._id} >
-                        <Weapons  weapon={weapon} characterId={id} />
+                        <Weapons getCharacter={getCharacter}  weapon={weapon} index={i} setWeaponState={setWeaponState} form={form} setForm={setForm} characterId={id} />
                     </div>
                 
                 )
@@ -188,13 +158,34 @@ export default function CharacterSheet(){
         
     }}
     
+    const deleteCharacter = async () =>{
+        try {
+            const token = localStorage.getItem('jwt')
+            const options = {
+                headers: {
+                    'Authorization': token
+                }
+            }
+            const response = await axios.delete(`${process.env.REACT_APP_SERVER_URL}/users/characters/${id}/`, options)
+            navigate('/mycharacters')
+        } catch (err) {
+            console.warn(err)
+            if(err.response) {
+                setMsg(err.response.data.message)
+            }
+        }
+    }
+
+
     return(
         <div className='grid-container'>
             <h1>CharacterSheet Page</h1>
             {msg}
-            <form>
+            <form onSubmit={setCharacter} >
+            <button type='submit'>Save</button>
+            <button onClick={deleteCharacter}>Delete</button>
                 <div className='character-header'>
-                    <img src={form.img_url} width={200} alt={form.name} ></img>
+                    <img src={form.img_url} width={200} alt='Character Profile Picture' ></img>
                     <label htmlFor='img_url'><h2>img_url:</h2></label>
                     <input 
                         type='text'
