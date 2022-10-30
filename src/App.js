@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 import { useState , useEffect} from 'react';
 import jwt_decode from "jwt-decode";
+import './scss/styles.js';
 
 import NavBar from './components/partials/NavBar'
 import Home from './components/pages/Home'

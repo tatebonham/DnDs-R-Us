@@ -1,0 +1,48 @@
+body {
+    background-color: lemonchiffon;
+}
+
+div{
+    border: 1px;
+    border-color: black;
+    border-style: solid;
+}
+.navbar{
+    display: flex;
+    justify-content: end;
+
+}
+
+.grid-container {
+    justify-content: center;
+    display: grid;
+    grid-row-gap: 10px;
+    grid-column-gap: 10px;
+    grid-template-columns: 400px 400px ;
+    grid-auto-rows: auto;
+    grid-template-areas: 
+    "header info" 
+    "stats skills"
+    "combat combat"
+    "attacksandweapons attacksandweapons"
+    
+    ;
+    
+}
+
+.character-header{
+    grid-area: header;
+}
+.character-info{
+    grid-area: info;
+}
+.character-stats{
+    grid-area: stats;
+}
+.skills{
+    grid-area: skills;
+}
+.attacksandweapons{
+    grid-area: attacksandweapons;
+}
+

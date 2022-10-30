@@ -30,7 +30,7 @@ export default function NavBar({currentUser, setCurrentUser}){
 
     return(
         <nav>
-            <div>
+            <div className="navbar">
                 <Link to ="/"> Home </Link> {'|'}
                 {currentUser ? loggedIn : loggedOut}
             </div>

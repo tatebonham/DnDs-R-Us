@@ -374,350 +374,356 @@ export default function CharacterSheet(){
         } 
     }
 
+    // set skills to have a + if it is over 0
+    const skillPlus = (skill) =>{
+        if(proficiencyBonus() + skill > 0){
+            return `+${proficiencyBonus() + skill}`
+        } else {
+            return `${proficiencyBonus() + skill}`
+        }
+    }
 
     return(
         <div className='grid-container'>
-            <h1>CharacterSheet Page</h1>
             {msg}
-            <form onSubmit={setCharacter} >
-            <button type='submit'>Save</button>
-            <button onClick={deleteCharacter}>Delete</button>
-                <div className='character-header'>
-                    <img src={form.img_url} width={200} alt='Character Profile Picture' ></img>
-                    <label htmlFor='img_url'><h2>img_url:</h2></label>
-                    <input 
-                        type='text'
-                        id='img_url'
-                        value={form.img_url}
-                        placeholder='Character img_url'
-                        onChange={e => setForm ({ ...form, img_url: e.target.value})}
-                        />
-                    <label htmlFor='name'><h2>Name:</h2></label>
-                    <input 
-                        type='text'
-                        id='name'
-                        value={form.name}
-                        placeholder='Character Name'
-                        onChange={e => setForm ({ ...form, name: e.target.value})}
-                        />
-                </div>
-                <div className='character-info' >
-                    <label htmlFor='race'><h2>Race:</h2></label>
-                    <input 
-                        type='text'
-                        id='race'
-                        value={form.race}
-                        placeholder='Character Race'
-                        onChange={e => setForm ({ ...form, race: e.target.value})}
-                        />
-                    <label htmlFor='class'><h2>class:</h2></label>
-                    <input 
-                        type='text'
-                        id='class'
-                        value={form.class}
-                        placeholder='Character Class'
-                        onChange={e => setForm ({ ...form, class: e.target.value})}
-                        />
-                    <label htmlFor='subclass'><h2>subclass:</h2></label>
-                    <input 
-                        type='text'
-                        id='subclass'
-                        value={form.subclass}
-                        placeholder='Character Subclass'
-                        onChange={e => setForm ({ ...form, subclass: e.target.value})}
-                        />
-                    <label htmlFor='alignment'><h2>alignment:</h2></label>
-                    <input 
-                        type='text'
-                        id='alignment'
-                        value={form.alignment}
-                        placeholder='Character Alignment'
-                        onChange={e => setForm ({ ...form, alignment: e.target.value})}
-                        />
-                    <label htmlFor='background'><h2>background:</h2></label>
-                    <input 
-                        type='text'
-                        id='background'
-                        value={form.background}
-                        placeholder='Character Background'
-                        onChange={e => setForm ({ ...form, background: e.target.value})}
-                        />
-                    <label htmlFor='level'><h2>level:</h2></label>
-                    <input 
-                        type='number'
-                        id='level'
-                        value={form.level}
-                        placeholder='Character Level'
-                        onChange={e => setForm ({ ...form, level: e.target.value})}
-                        />
-                </div>
-                <div className='character-stats'>
-                    <label htmlFor='strength'><h2>strength: {stats.strength}</h2></label>
-                    <input 
-                        type='number'
-                        id='strength'
-                        value={form.strength}
-                        placeholder='Strength'
-                        onChange={e => setForm ({ ...form, strength: e.target.value})}
-                        />
-                    <label htmlFor='dexterity'><h2>dexterity: {stats.dexterity}</h2></label>
-                    <input 
-                        type='number'
-                        id='dexterity'
-                        value={form.dexterity}
-                        placeholder='Dexterity'
-                        onChange={e => setForm ({ ...form, dexterity: e.target.value})}
-                        />
-                    <label htmlFor='constitution'><h2>constitution: {stats.constitution}</h2></label>
-                    <input 
-                        type='number'
-                        id='constitution'
-                        value={form.constitution}
-                        placeholder='Constitution'
-                        onChange={e => setForm ({ ...form, constitution: e.target.value})}
-                        />
-                    <label htmlFor='intelligence'><h2>intelligence: {stats.intelligence}</h2></label>
-                    <input 
-                        type='number'
-                        id='intelligence'
-                        value={form.intelligence}
-                        placeholder='Intelligence'
-                        onChange={e => setForm ({ ...form, intelligence: e.target.value})}
-                        />
-                    <label htmlFor='wisdom'><h2>wisdom: {stats.wisdom}</h2></label>
-                    <input 
-                        type='number'
-                        id='wisdom'
-                        value={form.wisdom}
-                        placeholder='Wisdom'
-                        onChange={e => setForm ({ ...form, wisdom: e.target.value})}
-                        />
-                    <label htmlFor='charisma'><h2>charisma: {stats.charisma}</h2></label>
-                    <input 
-                        type='number'
-                        id='charisma'
-                        value={form.charisma}
-                        placeholder='Charisma'
-                        onChange={e => setForm ({ ...form, charisma: e.target.value})}
-                        />
-                </div>
-                <div className='skills'>
-                        <label htmlFor='inpiration'><h2>inpiration: </h2></label>
-                        <input 
-                            type='number'
-                            id='inpiration'
-                            value={form.inpiration}
-                            placeholder='inpiration'
-                            onChange={e => setForm ({ ...form, inpiration: e.target.value})}
-                        />
-                        <h3>ProficiencyBonus: +{proficiencyBonus()}</h3>
-                        <div className='skills-chart'>
-                            <div className='skill-line'>
-                                <button onClick={e => toggleSkill(e, 'acrobatics')}>{form.acrobatics ? 'Active' : 'Not Active'}</button>
-                                <p><u>{form.acrobatics ?  (proficiencyBonus() + Number(stats.dexterity)): stats.dexterity}</u> - Acrobatics</p>
-                            </div>
-                            <div className='skill-line'>
-                                <button onClick={e => toggleSkill(e, 'animalhandling')}>{form.animalhandling ? 'Active' : 'Not Active'}</button>
-                                <p><u>{form.animalhandling ?  (proficiencyBonus() + Number(stats.wisdom)): stats.wisdom}</u> - animalhandling</p>
-                            </div>
-                            <div className='skill-line'>
-                                <button onClick={e => toggleSkill(e, 'arcana')}>{form.arcana ? 'Active' : 'Not Active'}</button>
-                                <p><u>{form.arcana ?  (proficiencyBonus() + Number(stats.intelligence)): stats.intelligence}</u> - arcana</p>
-                            </div>
-                            <div className='skill-line'>
-                                <button onClick={e => toggleSkill(e, 'athletics')}>{form.athletics ? 'Active' : 'Not Active'}</button>
-                                <p><u>{form.athletics ?  (proficiencyBonus() + Number(stats.strength)): stats.strength}</u> - athletics</p>
-                            </div>
-                            <div className='skill-line'>
-                                <button onClick={e => toggleSkill(e, 'deception')}>{form.deception ? 'Active' : 'Not Active'}</button>
-                                <p><u>{form.deception ?  (proficiencyBonus() + Number(stats.charisma)): stats.charisma}</u> - deception</p>
-                            </div>
-                            <div className='skill-line'>
-                                <button onClick={e => toggleSkill(e, 'history')}>{form.history ? 'Active' : 'Not Active'}</button>
-                                <p><u>{form.history ?  (proficiencyBonus() + Number(stats.intelligence)): stats.intelligence}</u> - history</p>
-                            </div>
-                            <div className='skill-line'>
-                                <button onClick={e => toggleSkill(e, 'insight')}>{form.insight ? 'Active' : 'Not Active'}</button>
-                                <p><u>{form.insight ?  (proficiencyBonus() + Number(stats.wisdom)): stats.wisdom}</u> - insight</p>
-                            </div>
-                            <div className='skill-line'>
-                                <button onClick={e => toggleSkill(e, 'intimidation')}>{form.intimidation ? 'Active' : 'Not Active'}</button>
-                                <p><u>{form.intimidation ?  (proficiencyBonus() + Number(stats.charisma)): stats.charisma}</u> - intimidation</p>
-                            </div>
-                            <div className='skill-line'>
-                                <button onClick={e => toggleSkill(e, 'investigation')}>{form.investigation ? 'Active' : 'Not Active'}</button>
-                                <p><u>{form.investigation ?  (proficiencyBonus() + Number(stats.intelligence)): stats.intelligence}</u> - investigation</p>
-                            </div>
-                            <div className='skill-line'>
-                                <button onClick={e => toggleSkill(e, 'medicine')}>{form.medicine ? 'Active' : 'Not Active'}</button>
-                                <p><u>{form.medicine ?  (proficiencyBonus() + Number(stats.wisdom)): stats.wisdom}</u> - medicine</p>
-                            </div>
-                            <div className='skill-line'>
-                                <button onClick={e => toggleSkill(e, 'nature')}>{form.nature ? 'Active' : 'Not Active'}</button>
-                                <p><u>{form.nature ?  (proficiencyBonus() + Number(stats.intelligence)): stats.intelligence}</u> - nature</p>
-                            </div>
-                            <div className='skill-line'>
-                                <button onClick={e => toggleSkill(e, 'perception')}>{form.perception ? 'Active' : 'Not Active'}</button>
-                                <p><u>{form.perception ?  (proficiencyBonus() + Number(stats.wisdom)): stats.wisdom}</u> - perception</p>
-                            </div>
-                            <div className='skill-line'>
-                                <button onClick={e => toggleSkill(e, 'perfomance')}>{form.perfomance ? 'Active' : 'Not Active'}</button>
-                                <p><u>{form.perfomance ?  (proficiencyBonus() + Number(stats.charisma)): stats.charisma}</u> - perfomance</p>
-                            </div>
-                            <div className='skill-line'>
-                                <button onClick={e => toggleSkill(e, 'persuasion')}>{form.persuasion ? 'Active' : 'Not Active'}</button>
-                                <p><u>{form.persuasion ?  (proficiencyBonus() + Number(stats.charisma)): stats.charisma}</u> - persuasion</p>
-                            </div>
-                            <div className='skill-line'>
-                                <button onClick={e => toggleSkill(e, 'religion')}>{form.religion ? 'Active' : 'Not Active'}</button>
-                                <p><u>{form.religion ?  (proficiencyBonus() + Number(stats.intelligence)): stats.intelligence}</u> - religion</p>
-                            </div>
-                            <div className='skill-line'>
-                                <button onClick={e => toggleSkill(e, 'sleight')}>{form.sleight ? 'Active' : 'Not Active'}</button>
-                                <p><u>{form.sleight ?  (proficiencyBonus() + Number(stats.dexterity)): stats.dexterity}</u> - sleight</p>
-                            </div>
-                            <div className='skill-line'>
-                                <button onClick={e => toggleSkill(e, 'stealth')}>{form.stealth ? 'Active' : 'Not Active'}</button>
-                                <p><u>{form.stealth ?  (proficiencyBonus() + Number(stats.dexterity)): stats.dexterity}</u> - stealth</p>
-                            </div>
-                            <div className='skill-line'>
-                                <button onClick={e => toggleSkill(e, 'survival')}>{form.survival ? 'Active' : 'Not Active'}</button>
-                                <p><u>{form.survival ?  (proficiencyBonus() + Number(stats.wisdom)): stats.wisdom}</u> - survival</p>
-                            </div>
-                        </div>
-                </div>
-                <div className='combat-info'>
-                        <label htmlFor='armor'><h2>armor: </h2></label>
-                        <input 
-                            type='number'
-                            id='armor'
-                            value={form.armor}
-                            placeholder='armor'
-                            onChange={e => setForm ({ ...form, armor: e.target.value})}
-                        />
-                        <label htmlFor='initiative'><h2>initiative: </h2></label>
-                        <input 
-                            type='number'
-                            id='initiative'
-                            value={form.initiative}
-                            placeholder='initiative'
-                            onChange={e => setForm ({ ...form, initiative: e.target.value})}
-                        />
-                        <label htmlFor='speed'><h2>speed: </h2></label>
-                        <input 
-                            type='number'
-                            id='speed'
-                            value={form.speed}
-                            placeholder='speed'
-                            onChange={e => setForm ({ ...form, speed: e.target.value})}
-                        />
-                        <label htmlFor='maxhealth'><h2>maxhealth: </h2></label>
-                        <input 
-                            type='number'
-                            id='maxhealth'
-                            value={form.maxhealth}
-                            placeholder='maxhealth'
-                            onChange={e => setForm ({ ...form, maxhealth: e.target.value})}
-                        />
-                        <label htmlFor='temporaryhealth'><h2>temporaryhealth: </h2></label>
-                        <input 
-                            type='number'
-                            id='temporaryhealth'
-                            value={form.temporaryhealth}
-                            placeholder='temporaryhealth'
-                            onChange={e => setForm ({ ...form, temporaryhealth: e.target.value})}
-                        />
-                        <label htmlFor='currenthealth'><h2>currenthealth: </h2></label>
-                        <input 
-                            type='number'
-                            id='currenthealth'
-                            value={form.currenthealth}
-                            placeholder='currenthealth'
-                            onChange={e => setForm ({ ...form, currenthealth: e.target.value})}
-                        />
-                        <label htmlFor='totalhitdice'><h2>totalhitdice: </h2></label>
-                        <input 
-                            type='number'
-                            id='totalhitdice'
-                            value={form.totalhitdice}
-                            placeholder='totalhitdice'
-                            onChange={e => setForm ({ ...form, totalhitdice: e.target.value})}
-                        />
-                        <label htmlFor='currenthitdice'><h2>currenthitdice: </h2></label>
-                        <input 
-                            type='number'
-                            id='currenthitdice'
-                            value={form.currenthitdice}
-                            placeholder='currenthitdice'
-                            onChange={e => setForm ({ ...form, currenthitdice: e.target.value})}
-                        />
-                </div>
-                <div className='proficiencies'>
-                        <h2>proficiencies</h2>
-                        <input 
-                            type='number'
-                            id='proficiencies'
-                            value={form.proficiencies}
-                            placeholder='proficiencies'
-                            onChange={e => setForm ({ ...form, proficiencies: e.target.value})}
-                        />
-                </div>
-            </form>
-            <div className='weapons'>
-                {weaponsList()}
-                <form onSubmit={handleSubmit} >
+            
+            {/* <button type='submit'>Save</button> */}
+            {/* <button onClick={deleteCharacter}>Delete</button> */}
+            <div className='character-header'>
+            <form>
+                <img src={form.img_url} width={200} alt='Character Profile Picture' ></img>
+                <input 
+                    type='text'
+                    id='img_url'
+                    value={form.img_url}
+                    placeholder='Character img_url'
+                    onChange={e => setForm ({ ...form, img_url: e.target.value})}
+                    />
                 <input 
                     type='text'
                     id='name'
-                    placeholder='name'
-                    value={weaponForm.name}
-                    onChange={e => setWeaponForm ({ ...weaponForm, name: e.target.value})}
-                       
-                />
+                    value={form.name}
+                    placeholder='Character Name'
+                    onChange={e => setForm ({ ...form, name: e.target.value})}
+                    />
+                </form>
+            </div>
+            <div className='character-info' >
                 <input 
                     type='text'
-                    id='damage'
-                    placeholder='damage'
-                    value={weaponForm.damage}
-                    onChange={e => setWeaponForm ({ ...weaponForm, damage: e.target.value})}
-                       
-                />
+                    id='race'
+                    value={form.race}
+                    placeholder='Character Race'
+                    onChange={e => setForm ({ ...form, race: e.target.value})}
+                    />
                 <input 
                     type='text'
-                    id='type'
-                    placeholder='type'
-                    value={weaponForm.type}
-                    onChange={e => setWeaponForm ({ ...weaponForm, type: e.target.value})}
-                       
-                />
-                <input 
-                    type='text'
-                    id='note'
-                    placeholder='note'
-                    value={weaponForm.note}
-                    onChange={e => setWeaponForm ({ ...weaponForm, note: e.target.value})}
-                       
-                />
+                    id='class'
+                    value={form.class}
+                    placeholder='Character Class'
+                    onChange={e => setForm ({ ...form, class: e.target.value})}
+                    />
                 
-                <button type='submit'>Add Weapon</button>
-            </form>
-            </div>  
-            <div className='attacks'>
-                {attacksList()}
-                    <div  className='add-attack'>
-                        <form onSubmit={handleAttackSubmit} >
-                            <input 
-                                type='text'
-                                id='note'
-                                placeholder='note'
-                                value={attackForm.note}
-                                onChange={e => setAttackForm ({ ...attackForm, note: e.target.value})}
-                            />
-                            
-                            <button type='submit'>Add Attack</button>
-                        </form>
+                <input 
+                    type='text'
+                    id='subclass'
+                    value={form.subclass}
+                    placeholder='Character Subclass'
+                    onChange={e => setForm ({ ...form, subclass: e.target.value})}
+                    />
+                
+                <input 
+                    type='text'
+                    id='alignment'
+                    value={form.alignment}
+                    placeholder='Character Alignment'
+                    onChange={e => setForm ({ ...form, alignment: e.target.value})}
+                    />
+
+                <input 
+                    type='text'
+                    id='background'
+                    value={form.background}
+                    placeholder='Character Background'
+                    onChange={e => setForm ({ ...form, background: e.target.value})}
+                    />
+                
+                <input 
+                    type='number'
+                    id='level'
+                    value={form.level}
+                    placeholder='Character Level'
+                    onChange={e => setForm ({ ...form, level: e.target.value})}
+                    />
+            </div>
+            <div className='character-stats'>
+                <label htmlFor='strength'><h2>strength: {stats.strength}</h2></label>
+                <input 
+                    type='number'
+                    id='strength'
+                    value={form.strength}
+                    placeholder='Strength'
+                    onChange={e => setForm ({ ...form, strength: e.target.value})}
+                    />
+                <label htmlFor='dexterity'><h2>dexterity: {stats.dexterity}</h2></label>
+                <input 
+                    type='number'
+                    id='dexterity'
+                    value={form.dexterity}
+                    placeholder='Dexterity'
+                    onChange={e => setForm ({ ...form, dexterity: e.target.value})}
+                    />
+                <label htmlFor='constitution'><h2>constitution: {stats.constitution}</h2></label>
+                <input 
+                    type='number'
+                    id='constitution'
+                    value={form.constitution}
+                    placeholder='Constitution'
+                    onChange={e => setForm ({ ...form, constitution: e.target.value})}
+                    />
+                <label htmlFor='intelligence'><h2>intelligence: {stats.intelligence}</h2></label>
+                <input 
+                    type='number'
+                    id='intelligence'
+                    value={form.intelligence}
+                    placeholder='Intelligence'
+                    onChange={e => setForm ({ ...form, intelligence: e.target.value})}
+                    />
+                <label htmlFor='wisdom'><h2>wisdom: {stats.wisdom}</h2></label>
+                <input 
+                    type='number'
+                    id='wisdom'
+                    value={form.wisdom}
+                    placeholder='Wisdom'
+                    onChange={e => setForm ({ ...form, wisdom: e.target.value})}
+                    />
+                <label htmlFor='charisma'><h2>charisma: {stats.charisma}</h2></label>
+                <input 
+                    type='number'
+                    id='charisma'
+                    value={form.charisma}
+                    placeholder='Charisma'
+                    onChange={e => setForm ({ ...form, charisma: e.target.value})}
+                    />
+            </div>
+            <div className='skills'>
+                    <label htmlFor='inpiration'><h2>inpiration: </h2></label>
+                    <input 
+                        type='number'
+                        id='inpiration'
+                        value={form.inpiration}
+                        placeholder='inpiration'
+                        onChange={e => setForm ({ ...form, inpiration: e.target.value})}
+                    />
+                    <h3>ProficiencyBonus: +{proficiencyBonus()}</h3>
+                    <div className='skills-chart'>
+                        <div className='skill-line'>
+                            <button onClick={e => toggleSkill(e, 'acrobatics')}>{form.acrobatics ? 'Active' : 'Not Active'}</button>
+                            <p><u>{form.acrobatics ? skillPlus(Number(stats.dexterity)) : stats.dexterity}</u> - Acrobatics</p>
+                        </div>
+                        <div className='skill-line'>
+                            <button onClick={e => toggleSkill(e, 'animalhandling')}>{form.animalhandling ? 'Active' : 'Not Active'}</button>
+                            <p><u>{form.animalhandling ?  skillPlus(Number(stats.wisdom)): stats.wisdom}</u> - animalhandling</p>
+                        </div>
+                        <div className='skill-line'>
+                            <button onClick={e => toggleSkill(e, 'arcana')}>{form.arcana ? 'Active' : 'Not Active'}</button>
+                            <p><u>{form.arcana ?  skillPlus(Number(stats.intelligence)): stats.intelligence}</u> - arcana</p>
+                        </div>
+                        <div className='skill-line'>
+                            <button onClick={e => toggleSkill(e, 'athletics')}>{form.athletics ? 'Active' : 'Not Active'}</button>
+                            <p><u>{form.athletics ? skillPlus(Number(stats.strength)): stats.strength}</u> - athletics</p>
+                        </div>
+                        <div className='skill-line'>
+                            <button onClick={e => toggleSkill(e, 'deception')}>{form.deception ? 'Active' : 'Not Active'}</button>
+                            <p><u>{form.deception ?  skillPlus(Number(stats.charisma)): stats.charisma}</u> - deception</p>
+                        </div>
+                        <div className='skill-line'>
+                            <button onClick={e => toggleSkill(e, 'history')}>{form.history ? 'Active' : 'Not Active'}</button>
+                            <p><u>{form.history ?  skillPlus(Number(stats.intelligence)): stats.intelligence}</u> - history</p>
+                        </div>
+                        <div className='skill-line'>
+                            <button onClick={e => toggleSkill(e, 'insight')}>{form.insight ? 'Active' : 'Not Active'}</button>
+                            <p><u>{form.insight ?  skillPlus(Number(stats.wisdom)): stats.wisdom}</u> - insight</p>
+                        </div>
+                        <div className='skill-line'>
+                            <button onClick={e => toggleSkill(e, 'intimidation')}>{form.intimidation ? 'Active' : 'Not Active'}</button>
+                            <p><u>{form.intimidation ?  skillPlus(Number(stats.charisma)): stats.charisma}</u> - intimidation</p>
+                        </div>
+                        <div className='skill-line'>
+                            <button onClick={e => toggleSkill(e, 'investigation')}>{form.investigation ? 'Active' : 'Not Active'}</button>
+                            <p><u>{form.investigation ?  skillPlus(Number(stats.intelligence)): stats.intelligence}</u> - investigation</p>
+                        </div>
+                        <div className='skill-line'>
+                            <button onClick={e => toggleSkill(e, 'medicine')}>{form.medicine ? 'Active' : 'Not Active'}</button>
+                            <p><u>{form.medicine ?  skillPlus(Number(stats.wisdom)): stats.wisdom}</u> - medicine</p>
+                        </div>
+                        <div className='skill-line'>
+                            <button onClick={e => toggleSkill(e, 'nature')}>{form.nature ? 'Active' : 'Not Active'}</button>
+                            <p><u>{form.nature ?  skillPlus(Number(stats.intelligence)): stats.intelligence}</u> - nature</p>
+                        </div>
+                        <div className='skill-line'>
+                            <button onClick={e => toggleSkill(e, 'perception')}>{form.perception ? 'Active' : 'Not Active'}</button>
+                            <p><u>{form.perception ?  skillPlus(Number(stats.wisdom)): stats.wisdom}</u> - perception</p>
+                        </div>
+                        <div className='skill-line'>
+                            <button onClick={e => toggleSkill(e, 'performance')}>{form.performance ? 'Active' : 'Not Active'}</button>
+                            <p><u>{form.performance ?  skillPlus(Number(stats.charisma)): stats.charisma}</u> - performance</p>
+                        </div>
+                        <div className='skill-line'>
+                            <button onClick={e => toggleSkill(e, 'persuasion')}>{form.persuasion ? 'Active' : 'Not Active'}</button>
+                            <p><u>{form.persuasion ?  skillPlus(Number(stats.charisma)): stats.charisma}</u> - persuasion</p>
+                        </div>
+                        <div className='skill-line'>
+                            <button onClick={e => toggleSkill(e, 'religion')}>{form.religion ? 'Active' : 'Not Active'}</button>
+                            <p><u>{form.religion ?  skillPlus(Number(stats.intelligence)): stats.intelligence}</u> - religion</p>
+                        </div>
+                        <div className='skill-line'>
+                            <button onClick={e => toggleSkill(e, 'sleight')}>{form.sleight ? 'Active' : 'Not Active'}</button>
+                            <p><u>{form.sleight ?  skillPlus(Number(stats.dexterity)): stats.dexterity}</u> - sleight</p>
+                        </div>
+                        <div className='skill-line'>
+                            <button onClick={e => toggleSkill(e, 'stealth')}>{form.stealth ? 'Active' : 'Not Active'}</button>
+                            <p><u>{form.stealth ?  skillPlus(Number(stats.dexterity)): stats.dexterity}</u> - stealth</p>
+                        </div>
+                        <div className='skill-line'>
+                            <button onClick={e => toggleSkill(e, 'survival')}>{form.survival ? 'Active' : 'Not Active'}</button>
+                            <p><u>{form.survival ?  skillPlus(Number(stats.wisdom)): stats.wisdom}</u> - survival</p>
+                        </div>
                     </div>
-            </div>   
+            </div>
+            <div className='combat-info'>
+                    <label htmlFor='armor'><h2>armor: </h2></label>
+                    <input 
+                        type='number'
+                        id='armor'
+                        value={form.armor}
+                        placeholder='armor'
+                        onChange={e => setForm ({ ...form, armor: e.target.value})}
+                    />
+                    <label htmlFor='initiative'><h2>initiative: </h2></label>
+                    <input 
+                        type='number'
+                        id='initiative'
+                        value={form.initiative}
+                        placeholder='initiative'
+                        onChange={e => setForm ({ ...form, initiative: e.target.value})}
+                    />
+                    <label htmlFor='speed'><h2>speed: </h2></label>
+                    <input 
+                        type='number'
+                        id='speed'
+                        value={form.speed}
+                        placeholder='speed'
+                        onChange={e => setForm ({ ...form, speed: e.target.value})}
+                    />
+                    <label htmlFor='maxhealth'><h2>maxhealth: </h2></label>
+                    <input 
+                        type='number'
+                        id='maxhealth'
+                        value={form.maxhealth}
+                        placeholder='maxhealth'
+                        onChange={e => setForm ({ ...form, maxhealth: e.target.value})}
+                    />
+                    <label htmlFor='temporaryhealth'><h2>temporaryhealth: </h2></label>
+                    <input 
+                        type='number'
+                        id='temporaryhealth'
+                        value={form.temporaryhealth}
+                        placeholder='temporaryhealth'
+                        onChange={e => setForm ({ ...form, temporaryhealth: e.target.value})}
+                    />
+                    <label htmlFor='currenthealth'><h2>currenthealth: </h2></label>
+                    <input 
+                        type='number'
+                        id='currenthealth'
+                        value={form.currenthealth}
+                        placeholder='currenthealth'
+                        onChange={e => setForm ({ ...form, currenthealth: e.target.value})}
+                    />
+                    <label htmlFor='totalhitdice'><h2>totalhitdice: </h2></label>
+                    <input 
+                        type='number'
+                        id='totalhitdice'
+                        value={form.totalhitdice}
+                        placeholder='totalhitdice'
+                        onChange={e => setForm ({ ...form, totalhitdice: e.target.value})}
+                    />
+                    <label htmlFor='currenthitdice'><h2>currenthitdice: </h2></label>
+                    <input 
+                        type='number'
+                        id='currenthitdice'
+                        value={form.currenthitdice}
+                        placeholder='currenthitdice'
+                        onChange={e => setForm ({ ...form, currenthitdice: e.target.value})}
+                    />
+            </div>
+            <div className='proficiencies'>
+                    <h2>proficiencies</h2>
+                    <input 
+                        type='number'
+                        id='proficiencies'
+                        value={form.proficiencies}
+                        placeholder='proficiencies'
+                        onChange={e => setForm ({ ...form, proficiencies: e.target.value})}
+                    />
+            </div>
+            <div className='attacksandweapons'>
+                <div className='weapons'>
+                    {weaponsList()}
+                    <form onSubmit={handleSubmit} >
+                    <input 
+                        type='text'
+                        id='name'
+                        placeholder='name'
+                        value={weaponForm.name}
+                        onChange={e => setWeaponForm ({ ...weaponForm, name: e.target.value})}
+                        
+                    />
+                    <input 
+                        type='text'
+                        id='damage'
+                        placeholder='damage'
+                        value={weaponForm.damage}
+                        onChange={e => setWeaponForm ({ ...weaponForm, damage: e.target.value})}
+                        
+                    />
+                    <input 
+                        type='text'
+                        id='type'
+                        placeholder='type'
+                        value={weaponForm.type}
+                        onChange={e => setWeaponForm ({ ...weaponForm, type: e.target.value})}
+                        
+                    />
+                    <input 
+                        type='text'
+                        id='note'
+                        placeholder='note'
+                        value={weaponForm.note}
+                        onChange={e => setWeaponForm ({ ...weaponForm, note: e.target.value})}
+                        
+                    />
+                    
+                    <button type='submit'>Add Weapon</button>
+                </form>
+                </div>  
+                <div className='attacks'>
+                    {attacksList()}
+                        <div  className='add-attack'>
+                            <form onSubmit={handleAttackSubmit} >
+                                <input 
+                                    type='text'
+                                    id='note'
+                                    placeholder='note'
+                                    value={attackForm.note}
+                                    onChange={e => setAttackForm ({ ...attackForm, note: e.target.value})}
+                                />
+                                
+                                <button type='submit'>Add Attack</button>
+                            </form>
+                        </div>
+                </div>   
+            </div>
             <div className='spells'>
                     <div  className='add-spell'>
                         <form onSubmit={handleSpellSubmit} >
