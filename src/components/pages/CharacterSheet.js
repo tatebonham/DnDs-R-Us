@@ -3,9 +3,17 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 import Weapons from '../partials/Weapons'
 import Spells from '../partials/Spells'
+import Attacks from '../partials/Attacks'
 
 export default function CharacterSheet(){
-    const [weaponState, setWeaponState] = useState({})
+    const [attackForm, setAttackForm] = useState({
+        note: ''
+    })
+    const [spellForm, setSpellForm] = useState({
+        level: 0,
+        name: '',
+        note: ''
+    })
     const [weaponForm, setWeaponForm] = useState({
         name: '',
         damage: '',
@@ -131,21 +139,71 @@ export default function CharacterSheet(){
             }
         }
         getCharacter()
+        setWeaponForm({
+            name: '',
+            damage: '',
+            type: '',
+            note: ''
+        })
+    }
+    const handleAttackSubmit = async e => {   
+        e.preventDefault()
+        try {
+            const token = localStorage.getItem('jwt')
+            const options = {
+                headers: {
+                    'Authorization': token
+                }
+            }
+            const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/users/characters/${id}/attacks`, attackForm, options)
+        } catch (err) {
+            console.warn(err)
+            if (err.response) {
+                setMsg(err.response.data.message)
+            }
+        }
+        getCharacter()
+        setAttackForm({
+            note: ''
+        })
+    }
+    const handleSpellSubmit = async e => {   
+        e.preventDefault()
+        try {
+            const token = localStorage.getItem('jwt')
+            const options = {
+                headers: {
+                    'Authorization': token
+                }
+            }
+            const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/users/characters/${id}/spells`, spellForm, options)
+        } catch (err) {
+            console.warn(err)
+            if (err.response) {
+                setMsg(err.response.data.message)
+            }
+        }
+        getCharacter()
+        setSpellForm({
+            level: 0,
+            name: '',
+            note: ''
+        })
     }
     
     const proficiencyBonus = () =>{
         if(form.level >= 1 && form.level <= 4){
-            return '+2'
+            return 2
         } else if(form.level >= 5 && form.level <= 8){
-            return '+3'
+            return 3
         } else if(form.level >= 5 && form.level <= 8){
-            return '+3'
+            return 3
         } else if(form.level >= 9 && form.level <= 12){
-            return '+4'
+            return 4
         } else if(form.level >= 13 && form.level <= 16){
-            return '+5'
+            return 5
         } else if(form.level >= 17 && form.level <= 20){
-            return '+6'
+            return 6
         }
     }
     // console.log(form.weapons)
@@ -155,6 +213,18 @@ export default function CharacterSheet(){
                 return(
                     <div key={weapon._id} >
                         <Weapons getCharacter={getCharacter}  weapon={weapon} index={i} characterId={id} />
+                    </div>
+                
+                )
+        })
+    }}
+
+    const attacksList = ()=>{
+        if (form.attacks !== undefined){
+            return form.attacks.map((attack, i) =>{
+                return(
+                    <div key={attack._id} >
+                        <Attacks getCharacter={getCharacter}  attack={attack} index={i} characterId={id} />
                     </div>
                 
                 )
@@ -188,6 +258,16 @@ export default function CharacterSheet(){
             console.warn(err)
             if(err.response) {
                 setMsg(err.response.data.message)
+            }
+        }
+    }
+    const toggleSkill = async (event, skill) =>{
+        event.preventDefault()
+        if(skill === 'acrobatics'){
+            if(form.acrobatics === true){
+                setForm({ ...form, acrobatics: false})
+            } else {
+                setForm({ ...form, acrobatics: true})
             }
         }
     }
@@ -328,9 +408,10 @@ export default function CharacterSheet(){
                             placeholder='inpiration'
                             onChange={e => setForm ({ ...form, inpiration: e.target.value})}
                         />
-                        <h3>ProficiencyBonus: {proficiencyBonus()}</h3>
+                        <h3>ProficiencyBonus: +{proficiencyBonus()}</h3>
                         <div className='skills-chart'>
-                            Skills
+                            <button onClick={e => toggleSkill(e, 'acrobatics')}>{form.acrobatics ? 'Active' : 'Not Active'}</button><p>{form.acrobatics ?  (proficiencyBonus() + Number(stats.dexterity)): stats.dexterity} - Acrobatics</p>
+                            <button>Toggle</button><p>{stats.wisdom} - Animal Handling</p>
                         </div>
                 </div>
                 <div className='combat-info'>
@@ -400,7 +481,14 @@ export default function CharacterSheet(){
                         />
                 </div>
                 <div className='proficiencies'>
-                    
+                        <h2>proficiencies</h2>
+                        <input 
+                            type='number'
+                            id='proficiencies'
+                            value={form.proficiencies}
+                            placeholder='proficiencies'
+                            onChange={e => setForm ({ ...form, proficiencies: e.target.value})}
+                        />
                 </div>
             </form>
             <div className='weapons'>
@@ -442,31 +530,239 @@ export default function CharacterSheet(){
                 <button type='submit'>Add Weapon</button>
             </form>
             </div>  
-            <div>
-                <form>
+            <div className='attacks'>
+                {attacksList()}
+                    <div  className='add-attack'>
+                        <form onSubmit={handleAttackSubmit} >
+                            <input 
+                                type='text'
+                                id='note'
+                                placeholder='note'
+                                value={attackForm.note}
+                                onChange={e => setAttackForm ({ ...attackForm, note: e.target.value})}
+                            />
+                            
+                            <button type='submit'>Add Attack</button>
+                        </form>
+                    </div>
+            </div>   
+            <div className='spells'>
+                    <div  className='add-spell'>
+                        <form onSubmit={handleSpellSubmit} >
+                            <input 
+                                type='text'
+                                id='level'
+                                placeholder='level'
+                                value={spellForm.level}
+                            onChange={e => setSpellForm ({ ...spellForm, level: e.target.value})}
+                                
+                            />
+                            <input 
+                                type='text'
+                                id='name'
+                                placeholder='name'
+                                value={spellForm.name}
+                                onChange={e => setSpellForm ({ ...spellForm, name: e.target.value})}
+                                
+                            />
+                            <input 
+                                type='text'
+                                id='note'
+                                placeholder='note'
+                                value={spellForm.note}
+                                onChange={e => setSpellForm ({ ...spellForm, note: e.target.value})}
+                                
+                            />
+                            
+                            <button type='submit'>Add Spell</button>
+                        </form>
+                    </div>
+                    <div className='level-zero-spells'>
+                        <h2>Cantrip</h2>
+                        {spellsList(0)}
+                    </div>
                     <div className='level-one-spells'>
-                        <img src={form.img_url} width={200} alt='Character Profile Picture' ></img>
-                        <label htmlFor='img_url'><h2>Level One Spells</h2></label>
-                        <input 
-                            type='number'
-                            id='onetotal'
-                            value={form.onetotal}
-                            placeholder='Character onetotal'
-                            onChange={e => setForm ({ ...form, onetotal: e.target.value})}
-                            />
-                        <input 
-                            type='number'
-                            id='oneremaining'
-                            value={form.oneremaining}
-                            placeholder='Character oneremaining'
-                            onChange={e => setForm ({ ...form, oneremaining: e.target.value})}
-                            />
+                        <form>
+                            <label htmlFor='img_url'><h2>Level One Spells</h2></label>
+                            <input 
+                                type='number'
+                                id='onetotal'
+                                value={form.onetotal}
+                                placeholder='Character onetotal'
+                                onChange={e => setForm ({ ...form, onetotal: e.target.value})}
+                                />
+                            <input 
+                                type='number'
+                                id='oneremaining'
+                                value={form.oneremaining}
+                                placeholder='Character oneremaining'
+                                onChange={e => setForm ({ ...form, oneremaining: e.target.value})}
+                                />
+                        </form>
                         {spellsList(1)}
                     </div>
-                </form>
+                    <div className='level-two-spells'>
+                        <form>
+                            <h2>Level two Spells</h2>
+                            <input 
+                                type='number'
+                                id='twototal'
+                                value={form.twototal}
+                                placeholder='Character twototal'
+                                onChange={e => setForm ({ ...form, twototal: e.target.value})}
+                                />
+                            <input 
+                                type='number'
+                                id='tworemaining'
+                                value={form.tworemaining}
+                                placeholder='Character tworemaining'
+                                onChange={e => setForm ({ ...form, tworemaining: e.target.value})}
+                                />
+                        </form>
+                        {spellsList(2)}
+                    </div>
+                    <div className='level-three-spells'>
+                        <form>
+                            <h2>Level three Spells</h2>
+                            <input 
+                                type='number'
+                                id='threetotal'
+                                value={form.threetotal}
+                                placeholder='Character threetotal'
+                                onChange={e => setForm ({ ...form, threetotal: e.target.value})}
+                                />
+                            <input 
+                                type='number'
+                                id='threeremaining'
+                                value={form.threeremaining}
+                                placeholder='Character threeremaining'
+                                onChange={e => setForm ({ ...form, threeremaining: e.target.value})}
+                                />
+                        </form>
+                        {spellsList(3)}
+                    </div>
+                    <div className='level-four-spells'>
+                        <form>
+                            <h2>Level four Spells</h2>
+                            <input 
+                                type='number'
+                                id='fourtotal'
+                                value={form.fourtotal}
+                                placeholder='Character fourtotal'
+                                onChange={e => setForm ({ ...form, fourtotal: e.target.value})}
+                                />
+                            <input 
+                                type='number'
+                                id='fourremaining'
+                                value={form.fourremaining}
+                                placeholder='Character fourremaining'
+                                onChange={e => setForm ({ ...form, fourremaining: e.target.value})}
+                                />
+                        </form>
+                        {spellsList(4)}
+                    </div>
+                    <div className='level-five-spells'>
+                        <form>
+                            <h2>Level five Spells</h2>
+                            <input 
+                                type='number'
+                                id='fivetotal'
+                                value={form.fivetotal}
+                                placeholder='Character fivetotal'
+                                onChange={e => setForm ({ ...form, fivetotal: e.target.value})}
+                                />
+                            <input 
+                                type='number'
+                                id='fiveremaining'
+                                value={form.fiveremaining}
+                                placeholder='Character fiveremaining'
+                                onChange={e => setForm ({ ...form, fiveremaining: e.target.value})}
+                                />
+                        </form>
+                        {spellsList(5)}
+                    </div>
+                    <div className='level-six-spells'>
+                        <form>
+                            <h2>Level six Spells</h2>
+                            <input 
+                                type='number'
+                                id='sixtotal'
+                                value={form.sixtotal}
+                                placeholder='Character sixtotal'
+                                onChange={e => setForm ({ ...form, sixtotal: e.target.value})}
+                                />
+                            <input 
+                                type='number'
+                                id='sixremaining'
+                                value={form.sixremaining}
+                                placeholder='Character sixremaining'
+                                onChange={e => setForm ({ ...form, sixremaining: e.target.value})}
+                                />
+                        </form>
+                        {spellsList(6)}
+                    </div>
+                    <div className='level-seven-spells'>
+                        <form>
+                            <h2>Level seven Spells</h2>
+                            <input 
+                                type='number'
+                                id='seventotal'
+                                value={form.seventotal}
+                                placeholder='Character seventotal'
+                                onChange={e => setForm ({ ...form, seventotal: e.target.value})}
+                                />
+                            <input 
+                                type='number'
+                                id='sevenremaining'
+                                value={form.sevenremaining}
+                                placeholder='Character sevenremaining'
+                                onChange={e => setForm ({ ...form, sevenremaining: e.target.value})}
+                                />
+                        </form>
+                        {spellsList(7)}
+                    </div>
+                    <div className='level-eight-spells'>
+                        <form>
+                            <h2>Level eight Spells</h2>
+                            <input 
+                                type='number'
+                                id='eighttotal'
+                                value={form.eighttotal}
+                                placeholder='Character eighttotal'
+                                onChange={e => setForm ({ ...form, eighttotal: e.target.value})}
+                                />
+                            <input 
+                                type='number'
+                                id='eightremaining'
+                                value={form.eightremaining}
+                                placeholder='Character eightremaining'
+                                onChange={e => setForm ({ ...form, eightremaining: e.target.value})}
+                                />
+                        </form>
+                        {spellsList(8)}
+                    </div>
+                    <div className='level-nine-spells'>
+                        <form>
+                            <h2>Level nine Spells</h2>
+                            <input 
+                                type='number'
+                                id='ninetotal'
+                                value={form.ninetotal}
+                                placeholder='Character ninetotal'
+                                onChange={e => setForm ({ ...form, ninetotal: e.target.value})}
+                                />
+                            <input 
+                                type='number'
+                                id='nineremaining'
+                                value={form.nineremaining}
+                                placeholder='Character nineremaining'
+                                onChange={e => setForm ({ ...form, nineremaining: e.target.value})}
+                                />
+                        </form>
+                        {spellsList(9)}
+                    </div>
             </div>
-                
-
+            
         </div>
     )
 }

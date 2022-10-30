@@ -1,22 +1,21 @@
-// import { useParams } from 'react-router-dom' 
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 
-export default function Spells(props){
+export default function Attacks(props){
     const [editing, setEditing] = useState(false)
     const [form, setForm] = useState({})
     const [msg, setMsg] = useState('')
 
-    const deleteSpellRoute = async () =>{
+    const deleteAttackRoute = async () =>{
         try {
-            console.log('Spell delete')
+            console.log('Attack delete')
             const token = localStorage.getItem('jwt')
             const options = {
                 headers: {
                     'Authorization': token
                 }
             }
-            const response = await axios.delete(`${process.env.REACT_APP_SERVER_URL}/users/characters/${props.characterId}/spells/${props.spell._id}`, options)
+            const response = await axios.delete(`${process.env.REACT_APP_SERVER_URL}/users/characters/${props.characterId}/attacks/${props.attack._id}`, options)
         } catch (err) {
             console.warn(err)
             if(err.response) {
@@ -34,10 +33,10 @@ export default function Spells(props){
                         'Authorization': token
                     }
                 }
-                const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/users/characters/${props.characterId}/spells/${props.spell._id}`, options)
-                const spell = response.data
+                const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/users/characters/${props.characterId}/attacks/${props.attack._id}`, options)
+                const attack = response.data
                 
-                setForm(spell)
+                setForm(attack)
             } catch (err) {
                 console.warn(err)
                 if(err.response) {
@@ -65,42 +64,25 @@ export default function Spells(props){
                 setMsg(err.response.data.message)
             }
         }
-        await props.getCharacter()
     }
     
-    const deleteSpell = async e => {
+    const deleteAttack = async e => {
         e.preventDefault()
-        await deleteSpellRoute()
+        await deleteAttackRoute()
         await props.getCharacter()
     }
 
-    const spellEdit = ()=>{
+    const attackEdit = ()=>{
         if(editing === false){
             return(
                 <div>
-                    <p>Level: {form.level}, Name: {form.name}, Note: {form.note}</p>
+                    <p>Note: {form.note}</p>
                 </div>
             )
         } else{
             return(
                 <div>
                     <form>
-                        <input 
-                            type='text'
-                            id='level'
-                            placeholder='level'
-                            value={form.level}
-                            onChange={e => setForm ({ ...form, level: e.target.value})}
-                            
-                        />
-                        <input 
-                            type='text'
-                            id='name'
-                            placeholder='name'
-                            value={form.name}
-                            onChange={e => setForm ({ ...form, name: e.target.value})}
-                            
-                        />
                         <input 
                             type='text'
                             id='note'
@@ -110,7 +92,7 @@ export default function Spells(props){
                             
                         />
                     </form>
-                    <button onClick={deleteSpell} >delete</button>
+                    <button onClick={deleteAttack} >delete</button>
                 </div>
             )
         }
@@ -137,10 +119,8 @@ export default function Spells(props){
     return(
         <div>
             {msg}
-            {spellEdit()} <button onClick={edit} >{editing ? 'save' : 'edit'}</button>
+            {attackEdit()} <button onClick={edit} >{editing ? 'save' : 'edit'}</button>
             
         </div>
     )
 }
-
-
