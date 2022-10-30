@@ -269,7 +269,109 @@ export default function CharacterSheet(){
             } else {
                 setForm({ ...form, acrobatics: true})
             }
-        }
+        } else if(skill === 'animalhandling'){
+            if(form.animalhandling === true){
+                setForm({ ...form, animalhandling: false})
+            } else {
+                setForm({ ...form, animalhandling: true})
+            }
+        } else if(skill === 'arcana'){
+            if(form.arcana === true){
+                setForm({ ...form, arcana: false})
+            } else {
+                setForm({ ...form, arcana: true})
+            }
+        } else if(skill === 'athletics'){
+            if(form.athletics === true){
+                setForm({ ...form, athletics: false})
+            } else {
+                setForm({ ...form, athletics: true})
+            }
+        } else if(skill === 'deception'){
+            if(form.deception === true){
+                setForm({ ...form, deception: false})
+            } else {
+                setForm({ ...form, deception: true})
+            }
+        } else if(skill === 'history'){
+            if(form.history === true){
+                setForm({ ...form, history: false})
+            } else {
+                setForm({ ...form, history: true})
+            }
+        } else if(skill === 'insight'){
+            if(form.insight === true){
+                setForm({ ...form, insight: false})
+            } else {
+                setForm({ ...form, insight: true})
+            }
+        } else if(skill === 'intimidation'){
+            if(form.intimidation === true){
+                setForm({ ...form, intimidation: false})
+            } else {
+                setForm({ ...form, intimidation: true})
+            }
+        } else if(skill === 'investigation'){
+            if(form.investigation === true){
+                setForm({ ...form, investigation: false})
+            } else {
+                setForm({ ...form, investigation: true})
+            }
+        } else if(skill === 'medicine'){
+            if(form.medicine === true){
+                setForm({ ...form, medicine: false})
+            } else {
+                setForm({ ...form, medicine: true})
+            }
+        } else if(skill === 'nature'){
+            if(form.nature === true){
+                setForm({ ...form, nature: false})
+            } else {
+                setForm({ ...form, nature: true})
+            }
+        } else if(skill === 'perception'){
+            if(form.perception === true){
+                setForm({ ...form, perception: false})
+            } else {
+                setForm({ ...form, perception: true})
+            }
+        } else if(skill === 'performance'){
+            if(form.performance === true){
+                setForm({ ...form, performance: false})
+            } else {
+                setForm({ ...form, performance: true})
+            }
+        } else if(skill === 'persuasion'){
+            if(form.persuasion === true){
+                setForm({ ...form, persuasion: false})
+            } else {
+                setForm({ ...form, persuasion: true})
+            }
+        } else if(skill === 'religion'){
+            if(form.religion === true){
+                setForm({ ...form, religion: false})
+            } else {
+                setForm({ ...form, religion: true})
+            }
+        } else if(skill === 'sleight'){
+            if(form.sleight === true){
+                setForm({ ...form, sleight: false})
+            } else {
+                setForm({ ...form, sleight: true})
+            }
+        } else if(skill === 'stealth'){
+            if(form.stealth === true){
+                setForm({ ...form, stealth: false})
+            } else {
+                setForm({ ...form, stealth: true})
+            }
+        } else if(skill === 'survival'){
+            if(form.survival === true){
+                setForm({ ...form, survival: false})
+            } else {
+                setForm({ ...form, survival: true})
+            }
+        } 
     }
 
 
@@ -410,8 +512,78 @@ export default function CharacterSheet(){
                         />
                         <h3>ProficiencyBonus: +{proficiencyBonus()}</h3>
                         <div className='skills-chart'>
-                            <button onClick={e => toggleSkill(e, 'acrobatics')}>{form.acrobatics ? 'Active' : 'Not Active'}</button><p>{form.acrobatics ?  (proficiencyBonus() + Number(stats.dexterity)): stats.dexterity} - Acrobatics</p>
-                            <button>Toggle</button><p>{stats.wisdom} - Animal Handling</p>
+                            <div className='skill-line'>
+                                <button onClick={e => toggleSkill(e, 'acrobatics')}>{form.acrobatics ? 'Active' : 'Not Active'}</button>
+                                <p><u>{form.acrobatics ?  (proficiencyBonus() + Number(stats.dexterity)): stats.dexterity}</u> - Acrobatics</p>
+                            </div>
+                            <div className='skill-line'>
+                                <button onClick={e => toggleSkill(e, 'animalhandling')}>{form.animalhandling ? 'Active' : 'Not Active'}</button>
+                                <p><u>{form.animalhandling ?  (proficiencyBonus() + Number(stats.wisdom)): stats.wisdom}</u> - animalhandling</p>
+                            </div>
+                            <div className='skill-line'>
+                                <button onClick={e => toggleSkill(e, 'arcana')}>{form.arcana ? 'Active' : 'Not Active'}</button>
+                                <p><u>{form.arcana ?  (proficiencyBonus() + Number(stats.intelligence)): stats.intelligence}</u> - arcana</p>
+                            </div>
+                            <div className='skill-line'>
+                                <button onClick={e => toggleSkill(e, 'athletics')}>{form.athletics ? 'Active' : 'Not Active'}</button>
+                                <p><u>{form.athletics ?  (proficiencyBonus() + Number(stats.strength)): stats.strength}</u> - athletics</p>
+                            </div>
+                            <div className='skill-line'>
+                                <button onClick={e => toggleSkill(e, 'deception')}>{form.deception ? 'Active' : 'Not Active'}</button>
+                                <p><u>{form.deception ?  (proficiencyBonus() + Number(stats.charisma)): stats.charisma}</u> - deception</p>
+                            </div>
+                            <div className='skill-line'>
+                                <button onClick={e => toggleSkill(e, 'history')}>{form.history ? 'Active' : 'Not Active'}</button>
+                                <p><u>{form.history ?  (proficiencyBonus() + Number(stats.intelligence)): stats.intelligence}</u> - history</p>
+                            </div>
+                            <div className='skill-line'>
+                                <button onClick={e => toggleSkill(e, 'insight')}>{form.insight ? 'Active' : 'Not Active'}</button>
+                                <p><u>{form.insight ?  (proficiencyBonus() + Number(stats.wisdom)): stats.wisdom}</u> - insight</p>
+                            </div>
+                            <div className='skill-line'>
+                                <button onClick={e => toggleSkill(e, 'intimidation')}>{form.intimidation ? 'Active' : 'Not Active'}</button>
+                                <p><u>{form.intimidation ?  (proficiencyBonus() + Number(stats.charisma)): stats.charisma}</u> - intimidation</p>
+                            </div>
+                            <div className='skill-line'>
+                                <button onClick={e => toggleSkill(e, 'investigation')}>{form.investigation ? 'Active' : 'Not Active'}</button>
+                                <p><u>{form.investigation ?  (proficiencyBonus() + Number(stats.intelligence)): stats.intelligence}</u> - investigation</p>
+                            </div>
+                            <div className='skill-line'>
+                                <button onClick={e => toggleSkill(e, 'medicine')}>{form.medicine ? 'Active' : 'Not Active'}</button>
+                                <p><u>{form.medicine ?  (proficiencyBonus() + Number(stats.wisdom)): stats.wisdom}</u> - medicine</p>
+                            </div>
+                            <div className='skill-line'>
+                                <button onClick={e => toggleSkill(e, 'nature')}>{form.nature ? 'Active' : 'Not Active'}</button>
+                                <p><u>{form.nature ?  (proficiencyBonus() + Number(stats.intelligence)): stats.intelligence}</u> - nature</p>
+                            </div>
+                            <div className='skill-line'>
+                                <button onClick={e => toggleSkill(e, 'perception')}>{form.perception ? 'Active' : 'Not Active'}</button>
+                                <p><u>{form.perception ?  (proficiencyBonus() + Number(stats.wisdom)): stats.wisdom}</u> - perception</p>
+                            </div>
+                            <div className='skill-line'>
+                                <button onClick={e => toggleSkill(e, 'perfomance')}>{form.perfomance ? 'Active' : 'Not Active'}</button>
+                                <p><u>{form.perfomance ?  (proficiencyBonus() + Number(stats.charisma)): stats.charisma}</u> - perfomance</p>
+                            </div>
+                            <div className='skill-line'>
+                                <button onClick={e => toggleSkill(e, 'persuasion')}>{form.persuasion ? 'Active' : 'Not Active'}</button>
+                                <p><u>{form.persuasion ?  (proficiencyBonus() + Number(stats.charisma)): stats.charisma}</u> - persuasion</p>
+                            </div>
+                            <div className='skill-line'>
+                                <button onClick={e => toggleSkill(e, 'religion')}>{form.religion ? 'Active' : 'Not Active'}</button>
+                                <p><u>{form.religion ?  (proficiencyBonus() + Number(stats.intelligence)): stats.intelligence}</u> - religion</p>
+                            </div>
+                            <div className='skill-line'>
+                                <button onClick={e => toggleSkill(e, 'sleight')}>{form.sleight ? 'Active' : 'Not Active'}</button>
+                                <p><u>{form.sleight ?  (proficiencyBonus() + Number(stats.dexterity)): stats.dexterity}</u> - sleight</p>
+                            </div>
+                            <div className='skill-line'>
+                                <button onClick={e => toggleSkill(e, 'stealth')}>{form.stealth ? 'Active' : 'Not Active'}</button>
+                                <p><u>{form.stealth ?  (proficiencyBonus() + Number(stats.dexterity)): stats.dexterity}</u> - stealth</p>
+                            </div>
+                            <div className='skill-line'>
+                                <button onClick={e => toggleSkill(e, 'survival')}>{form.survival ? 'Active' : 'Not Active'}</button>
+                                <p><u>{form.survival ?  (proficiencyBonus() + Number(stats.wisdom)): stats.wisdom}</u> - survival</p>
+                            </div>
                         </div>
                 </div>
                 <div className='combat-info'>
