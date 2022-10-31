@@ -18,18 +18,21 @@ div{
     display: grid;
     grid-row-gap: 10px;
     grid-column-gap: 10px;
-    grid-template-columns: 400px 400px ;
+    grid-template-columns: 200px 200px 400px 200px ;
     grid-auto-rows: auto;
     grid-template-areas: 
-    "header info" 
-    "stats skills"
-    "combat combat"
-    "attacksandweapons attacksandweapons"
+    "header header info info" 
+    "stats skills combat prof"
+    
+    "attacksandweapons attacksandweapons attacksandweapons attacksandweapons"
     
     ;
     
 }
 
+.proficiencies{
+    grid-area: prof;
+}
 .character-header{
     grid-area: header;
 }

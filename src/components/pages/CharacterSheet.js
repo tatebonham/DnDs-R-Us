@@ -4,8 +4,20 @@ import axios from 'axios'
 import Weapons from '../partials/Weapons'
 import Spells from '../partials/Spells'
 import Attacks from '../partials/Attacks'
+import Features from '../partials/Features'
+import Prof from '../partials/Prof'
+import Equipment from '../partials/Equipment'
 
 export default function CharacterSheet(){
+    const [profForm, setProfForm] = useState({
+        note: ''
+    })
+    const [featureForm, setFeatureForm] = useState({
+        note: ''
+    })
+    const [equipmentForm, setEquipmentForm] = useState({
+        note: ''
+    })
     const [attackForm, setAttackForm] = useState({
         note: ''
     })
@@ -68,7 +80,7 @@ export default function CharacterSheet(){
             }
             const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/users/characters/${id}`, options)
             const character = response.data
-            console.log(character.weapons)
+            console.log(character.proficiencies)
             
             setForm(character)
             setStats({
@@ -167,6 +179,70 @@ export default function CharacterSheet(){
             note: ''
         })
     }
+    const handleProfSubmit = async e => {   
+        e.preventDefault()
+        try {
+            const token = localStorage.getItem('jwt')
+            const options = {
+                headers: {
+                    'Authorization': token
+                }
+            }
+            console.log(profForm)
+            const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/users/characters/${id}/profs`, profForm, options)
+        } catch (err) {
+            console.warn(err)
+            if (err.response) {
+                setMsg(err.response.data.message)
+            }
+        }
+        getCharacter()
+        setProfForm({
+            note: ''
+        })
+    }
+    const handleEquipmentSubmit = async e => {   
+        e.preventDefault()
+        try {
+            const token = localStorage.getItem('jwt')
+            const options = {
+                headers: {
+                    'Authorization': token
+                }
+            }
+            const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/users/characters/${id}/equipment`, equipmentForm, options)
+        } catch (err) {
+            console.warn(err)
+            if (err.response) {
+                setMsg(err.response.data.message)
+            }
+        }
+        getCharacter()
+        setEquipmentForm({
+            note: ''
+        })
+    }
+    const handleFeatureSubmit = async e => {   
+        e.preventDefault()
+        try {
+            const token = localStorage.getItem('jwt')
+            const options = {
+                headers: {
+                    'Authorization': token
+                }
+            }
+            const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/users/characters/${id}/features`, featureForm, options)
+        } catch (err) {
+            console.warn(err)
+            if (err.response) {
+                setMsg(err.response.data.message)
+            }
+        }
+        getCharacter()
+        setFeatureForm({
+            note: ''
+        })
+    }
     const handleSpellSubmit = async e => {   
         e.preventDefault()
         try {
@@ -219,6 +295,39 @@ export default function CharacterSheet(){
         })
     }}
 
+    const profsList = ()=>{
+        if (form.proficiencies !== undefined){
+            return form.proficiencies.map((prof, i) =>{
+                return(
+                    <div key={prof._id} >
+                        <Prof getCharacter={getCharacter}  prof={prof} index={i} characterId={id} />
+                    </div>
+                
+                )
+        })
+    }}
+    const featuresList = ()=>{
+        if (form.features !== undefined){
+            return form.features.map((feature, i) =>{
+                return(
+                    <div key={feature._id} >
+                        <Features getCharacter={getCharacter}  feature={feature} index={i} characterId={id} />
+                    </div>
+                
+                )
+        })
+    }}
+    const equipmentList = ()=>{
+        if (form.equipment !== undefined){
+            return form.equipment.map((equipment, i) =>{
+                return(
+                    <div key={equipment._id} >
+                        <Equipment getCharacter={getCharacter}  equipment={equipment} index={i} characterId={id} />
+                    </div>
+                
+                )
+        })
+    }}
     const attacksList = ()=>{
         if (form.attacks !== undefined){
             return form.attacks.map((attack, i) =>{
@@ -457,7 +566,7 @@ export default function CharacterSheet(){
                     />
             </div>
             <div className='character-stats'>
-                <label htmlFor='strength'><h2>strength: {stats.strength}</h2></label>
+               <p>strength: {stats.strength}</p>
                 <input 
                     type='number'
                     id='strength'
@@ -658,14 +767,55 @@ export default function CharacterSheet(){
                     />
             </div>
             <div className='proficiencies'>
-                    <h2>proficiencies</h2>
-                    <input 
-                        type='number'
-                        id='proficiencies'
-                        value={form.proficiencies}
-                        placeholder='proficiencies'
-                        onChange={e => setForm ({ ...form, proficiencies: e.target.value})}
-                    />
+                    <h2>proficiencies and languages</h2>
+                    {profsList()}
+                        <div  className='add-prof'>
+                            <form onSubmit={handleProfSubmit} >
+                                <input 
+                                    type='text'
+                                    id='note'
+                                    placeholder='note'
+                                    value={profForm.note}
+                                    onChange={e => setProfForm ({ ...profForm, note: e.target.value})}
+                                />
+                                
+                                <button type='submit'>Add Prof</button>
+                            </form>
+                </div>
+            </div>
+            <div className='equipment'>
+                    <h2>Equipment</h2>
+                    {equipmentList()}
+                        <div  className='add-equipment'>
+                            <form onSubmit={handleEquipmentSubmit} >
+                                <input 
+                                    type='text'
+                                    id='note'
+                                    placeholder='note'
+                                    value={equipmentForm.note}
+                                    onChange={e => setEquipmentForm ({ ...equipmentForm, note: e.target.value})}
+                                />
+                                
+                                <button type='submit'>Add Equipment</button>
+                            </form>
+                </div>
+            </div>
+            <div className='features'>
+                    <h2>Features and Traits</h2>
+                    {featuresList()}
+                        <div  className='add-feature'>
+                            <form onSubmit={handleFeatureSubmit} >
+                                <input 
+                                    type='text'
+                                    id='note'
+                                    placeholder='note'
+                                    value={featureForm.note}
+                                    onChange={e => setFeatureForm ({ ...featureForm, note: e.target.value})}
+                                />
+                                
+                                <button type='submit'>Add feature</button>
+                            </form>
+                </div>
             </div>
             <div className='attacksandweapons'>
                 <div className='weapons'>

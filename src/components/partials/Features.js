@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 
-export default function Attacks(props){
+export default function Features(props){
     const [editing, setEditing] = useState(false)
     const [form, setForm] = useState({})
     const [msg, setMsg] = useState('')
 
-    const deleteAttackRoute = async () =>{
+    const deleteFeatureRoute = async () =>{
         try {
             console.log('Attack delete')
             const token = localStorage.getItem('jwt')
@@ -15,7 +15,7 @@ export default function Attacks(props){
                     'Authorization': token
                 }
             }
-            const response = await axios.delete(`${process.env.REACT_APP_SERVER_URL}/users/characters/${props.characterId}/attacks/${props.attack._id}`, options)
+            const response = await axios.delete(`${process.env.REACT_APP_SERVER_URL}/users/characters/${props.characterId}/features/${props.feature._id}`, options)
         } catch (err) {
             console.warn(err)
             if(err.response) {
@@ -33,10 +33,10 @@ export default function Attacks(props){
                         'Authorization': token
                     }
                 }
-                const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/users/characters/${props.characterId}/attacks/${props.attack._id}`, options)
-                const attack = response.data
+                const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/users/characters/${props.characterId}/features/${props.feature._id}`, options)
+                const feature = response.data
                 
-                setForm(attack)
+                setForm(feature)
             } catch (err) {
                 console.warn(err)
                 if(err.response) {
@@ -57,7 +57,7 @@ export default function Attacks(props){
                 }
             }
             
-            const response = await axios.put(`${process.env.REACT_APP_SERVER_URL}/users/characters/${props.characterId}/attacks/${props.attack._id}`,form, options)
+            const response = await axios.put(`${process.env.REACT_APP_SERVER_URL}/users/characters/${props.characterId}/features/${props.feature._id}`,form, options)
         } catch (err) {
             console.warn(err)
             if(err.response) {
@@ -66,13 +66,13 @@ export default function Attacks(props){
         }
     }
     
-    const deleteAttack = async e => {
+    const deleteFeature = async e => {
         e.preventDefault()
-        await deleteAttackRoute()
+        await deleteFeatureRoute()
         await props.getCharacter()
     }
 
-    const attackEdit = ()=>{
+    const featureEdit = ()=>{
         if(editing === false){
             return(
                 <div>
@@ -92,7 +92,7 @@ export default function Attacks(props){
                             
                         />
                     </form>
-                    <button onClick={deleteAttack} >delete</button>
+                    <button onClick={deleteFeature} >delete</button>
                 </div>
             )
         }
@@ -119,7 +119,7 @@ export default function Attacks(props){
     return(
         <div>
             {msg}
-            {attackEdit()} <button onClick={edit} >{editing ? 'save' : 'edit'}</button>
+            {featureEdit()} <button onClick={edit} >{editing ? 'save' : 'edit'}</button>
             
         </div>
     )
