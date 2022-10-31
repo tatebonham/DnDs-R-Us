@@ -79,11 +79,10 @@ export default function Weapons(props){
         if(editing === false){
             return(
                 <div className='expand'>
-                    <button {...getToggleProps()}>
-                        {isExpanded ? `Weapon Name: ${form.name}  |  Damage Amount: ${form.damage}  |  Damage Type: ${form.type}` : `Weapon Name: ${form.name}  |  Damage Amount: ${form.damage}  | Damage Type: ${form.type}`}
+                    <button {...getToggleProps()} className='weapon-expand-button'>
+                        {isExpanded ? `Weapon: ${form.name}  |   Damage: ${form.damage}  |  Type: ${form.type}` : `Weapon: ${form.name}  |  Damage: ${form.damage}  |  Type: ${form.type}`}
                     </button>
-                    <section {...getCollapseProps()}>Note: {form.note} 🙈</section>
-                    <p></p>
+                    <section {...getCollapseProps()} className='weapon' >Description: {form.note} 🙈<div><button onClick={edit} className='editweaponbutton'>{editing ? 'save' : 'edit'}</button></div></section>
                 </div>
             )
         } else{
@@ -123,7 +122,8 @@ export default function Weapons(props){
                             
                         />
                     </form>
-                    <button onClick={deleteWeapon} >delete</button>
+                    <button onClick={edit} className='editweaponbutton'>{editing ? 'save' : 'edit'}</button>
+                    <button onClick={deleteWeapon} className='editweaponbutton'>delete</button>
                 </div>
             )
         }
@@ -150,7 +150,7 @@ export default function Weapons(props){
     return(
         <div>
             {msg}
-            {weaponEdit()} <button onClick={edit} >{editing ? 'save' : 'edit'}</button>
+            {weaponEdit()} 
             
         </div>
     )

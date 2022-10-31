@@ -1,4 +1,4 @@
-import { Link} from 'react-router-dom' 
+import { Link, useNavigate} from 'react-router-dom' 
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import CharacterCard from '../partials/CharacterCard'
@@ -6,6 +6,7 @@ import CharacterCard from '../partials/CharacterCard'
 export default function MyCharacters(){
     const [characters, setCharacters] = useState([])
     const [msg, setMsg] = useState('')
+    const navigate = useNavigate()
 
     useEffect(()=>{
         const getCharacters = async ()=>{
@@ -32,16 +33,22 @@ export default function MyCharacters(){
     const characterList = characters.map((character, index) =>{
         return(
             <div key={character._id}>
-                index: {index}
                 <CharacterCard character={character} />
-                <Link to={`/charactersheet/${character._id}`}  >Character Sheet</Link>
+                
             </div>
         )
     })
 
+    const handleClick = e =>{
+        e.preventDefault()
+        navigate('/newcharacter')
+    }
+
     return(
         <div className='chars-container'>
-            <Link  to='/newcharacter'>Create a Character</Link>
+            <div className='btn-container'>
+            <h2 onClick={handleClick} className='newchar'>Make a New Character</h2>
+            </div>
             {msg}
             {characterList}
         </div>

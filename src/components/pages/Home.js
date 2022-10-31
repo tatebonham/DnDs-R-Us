@@ -21,7 +21,7 @@ export default function Home(props){
     return(
         <div className="home-container">
             <div className="content">
-                <h1>{props.currentUser ? `Welcome back adventurer!` : 'Welcome adventurer, tis a pleasure to make your acquintance! '}<br/>Please select your path, your destiny awaits you.</h1>
+                <h1 className="headerhome">{props.currentUser ? `Welcome back adventurer!` : 'Welcome adventurer, tis a pleasure to make your acquintance! '}<br/>Please select your path, your destiny awaits you.</h1>
                 {props.currentUser ? 
                     <div className="home-buttons">
                         <div className="home-buttons1" onClick={goDmscreen} ><p>My DM Screen</p></div>

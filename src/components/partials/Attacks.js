@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
+import useCollapse from 'react-collapsed'
 
 export default function Attacks(props){
     const [editing, setEditing] = useState(false)
     const [form, setForm] = useState({})
     const [msg, setMsg] = useState('')
+    const { getCollapseProps, getToggleProps, isExpanded } = useCollapse()
 
     const deleteAttackRoute = async () =>{
         try {
@@ -75,9 +77,12 @@ export default function Attacks(props){
     const attackEdit = ()=>{
         if(editing === false){
             return(
-                <div>
-                    <p>Note: {form.note}</p>
-                </div>
+                <div className='expand-attack'>
+                <button {...getToggleProps()} className='attacknote'>
+                    {isExpanded ? `${form.note}` : `${form.note}`}
+                </button>
+                <section {...getCollapseProps()}><div><button onClick={edit} className='edit-attack-button' >{editing ? 'save' : 'edit'}</button></div></section>       
+            </div>
             )
         } else{
             return(
@@ -92,6 +97,7 @@ export default function Attacks(props){
                             
                         />
                     </form>
+                    <button onClick={edit} >{editing ? 'save' : 'edit'}</button>
                     <button onClick={deleteAttack} >delete</button>
                 </div>
             )
@@ -119,7 +125,7 @@ export default function Attacks(props){
     return(
         <div>
             {msg}
-            {attackEdit()} <button onClick={edit} >{editing ? 'save' : 'edit'}</button>
+            {attackEdit()} 
             
         </div>
     )

@@ -1,6 +1,10 @@
 body {
     background-color: lemonchiffon;
 }
+@mixin border{
+    border: 2px;
+    border-style: solid;
+}
 
 .routes{
     border: 0;
@@ -13,6 +17,7 @@ body {
     align-items: center;
     justify-content: space-around;
     .logo{
+        @include border();
         margin-top: 10px;
         width: 50vw;
         border: 0;
@@ -26,6 +31,7 @@ body {
             cursor: pointer;
         }
         h1{
+            @include border();
             pointer-events:auto;
             align-items: center;
             display: flex;
@@ -38,6 +44,7 @@ body {
             background-color: gray;
         }
         img{
+            @include border();
             pointer-events:auto;
             border-radius: 25px;
             width: 100px;
@@ -55,7 +62,8 @@ body {
             div{
                 border: 0;
             }
-            border: 0;
+            @include border();
+           
             display: flex;
             border-radius: 10px;
             flex-direction: column;
@@ -64,6 +72,8 @@ body {
             margin-right: 125px;
             background-color: gray;
             .link-item{
+                @include border();
+                border-radius: 5px;
                 :hover{
                     color: rgb(165, 4, 4);
                     background-color: rgb(163, 163, 163);
@@ -147,6 +157,42 @@ body {
     }
 }
 
+.character-container{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    .character-form{
+        width: 700px;
+        h1{
+            padding: 10px;
+            margin: 0;
+        }
+        border-radius: 15px;
+        display: flex;
+        flex-direction: column;
+        input{
+            font-size: 20px;
+            text-align: center;
+            width: 500px;
+            height: 60px;
+            border-radius: 15px;
+        }
+        button{
+            margin: 10px;
+            &:hover{
+                cursor: pointer;
+            }
+        }
+        label{
+            text-decoration: underline;
+            font-size: 20px;
+            
+        }
+        margin-top:20px ;
+        background-color: tan;
+    }
+}
+
 .dmscreen-container{
     text-align: center;
     display: flex;
@@ -174,6 +220,15 @@ body {
     }
 }
 
+.character-stats{
+    display: flex;
+    justify-content: center;
+    flex-direction: column ;
+    h2{
+        margin: 0;
+    }
+}
+
 .grid-container {
     margin-top: 0px;
     border: 0;
@@ -182,15 +237,14 @@ body {
     grid-row-gap: 10px;
     grid-column-gap: 10px;
     grid-template-columns: 225px 215px 400px 200px ;
-    grid-template-rows: auto 100px auto 100px 200px auto;
+    grid-template-rows: auto 100px auto 25px 400px auto;
     grid-template-areas: 
     "header info info info" 
     "header skills combat prof"
     "stats skills combat prof"
-    "stats attacksandweapons attacksandweapons prof"
-    "stats attacksandweapons attacksandweapons features"
+    "stats skills attacksandweapons attacksandweapons"
+    "spells spells attacksandweapons attacksandweapons"
     "spells spells equipment features"
-    
     
     ;
     
@@ -261,16 +315,20 @@ input::-webkit-inner-spin-button {
 
 .skills {
     .inspiration{
+        margin-top: 3px;
+        margin-bottom: 3px;
         @include outerBox();
         input {
            @include inputBox();
         }
     }
     .pb{
+        margin-top: 7px;
         @include outerBox();
         justify-content: center;
     }
     .skills-chart{
+        margin-top: 7px;
         margin-bottom: 2px;
         background-color: tan;
         border: 2px;
@@ -348,6 +406,7 @@ input::-webkit-inner-spin-button {
     }
     .temp-health{
         border: 0px;
+        margin: 0;
         border-bottom: 2px;
         border-style: solid;
         display: flex;
@@ -362,8 +421,8 @@ input::-webkit-inner-spin-button {
         border: 0px;
         text-align: center;
         input{
-            margin-top: 5px;
-            font-size: 25px;
+            margin-top: 15px;
+            font-size: 40px;
             text-align: center;
             height: 50px;
             width: 200px;
@@ -371,6 +430,7 @@ input::-webkit-inner-spin-button {
         }
         h2{
             margin: 0;
+            font-size: 25px;
         }
     }
     .bottom-row{
@@ -455,6 +515,7 @@ input::-webkit-inner-spin-button {
 }
 
 .character-header{
+    @include border();
     margin-top: 50px;
     background-color: tan;
     border-radius: 15px;
@@ -537,20 +598,27 @@ cursor: pointer;
 .expand{
     border: 0;
     text-align: center;
-    section{
+    
+    .weapon-section{
         text-align: center;
         background-color: tan;
         height: auto;
         margin-left: 15px;
         margin-right: 15px;
+        .edit-button{
+            width: 100px;
+        }
     }
     
-    button{
+    .weapon-expand-button{
+        display: flex;
+        justify-content: space-evenly;
         &:hover{
             cursor: pointer;
         }
         background-color: white;
-        width: 600px;
+        font-size: 18px;
+        width: 625px;
         height: 25px;
     }
 }
@@ -560,7 +628,7 @@ cursor: pointer;
     
     section{
         text-align: center;
-        background-color: tan;
+        background-color: lightgray;
         height: auto;
         margin-left: 15px;
         margin-right: 15px;
@@ -604,21 +672,171 @@ cursor: pointer;
         }
         background-color: white;
         font-size: 18px;
-        width: 425px;
         height: 25px;
     }
 }
 
+
+.expand-attack{
+    border: 0;
+    text-align: center;
+    
+    section{
+        text-align: center;
+        background-color: tan;
+        height: auto;
+        margin-left: 15px;
+        margin-right: 15px;
+    }
+    .attacknote{
+        width: 400px;
+        height: 25px;border-radius: 0px;
+    }
+    
+    .edit-attack-button{
+        &:hover{
+            cursor: pointer;
+        }
+        background-color: white;
+        font-size: 18px;
+        height: 25px;
+        border-radius: 15px;
+        width: 100px;
+    }
+}
+.expand-equipment{
+    border: 0;
+    text-align: center;
+    
+    section{
+        text-align: center;
+        background-color: tan;
+        height: auto;
+        margin-left: 15px;
+        margin-right: 15px;
+    }
+    .equipmentnote{
+        width: 380px;
+        height: 25px;border-radius: 0px;
+    }
+    
+    .edit-equipment-button{
+        &:hover{
+            cursor: pointer;
+        }
+        background-color: white;
+        font-size: 18px;
+        height: 25px;
+        border-radius: 15px;
+        width: 100px;
+    }
+}
+.expand-feature{
+    border: 0;
+    text-align: center;
+    
+    section{
+        text-align: center;
+        background-color: tan;
+        height: auto;
+        margin-left: 15px;
+        margin-right: 15px;
+    }
+    .featurenote{
+        width: 175px;
+        height: 25px;border-radius: 0px;
+    }
+    
+    .edit-feature-button{
+        &:hover{
+            cursor: pointer;
+        }
+        background-color: white;
+        font-size: 18px;
+        height: 25px;
+        border-radius: 15px;
+        width: 100px;
+    }
+}
+
 .spells{
+    margin-top: 0px;
+    background-color: tan;
+    border: 2px;
+    border-style: solid;
+    border-radius: 15px;
+    padding: 3px;
+    form{
+        display: flex;
+        align-items: center;
+       
+        border: 0;
+        border-bottom: 3px;
+        border-style: solid;
+        input{
+            width: 40px;
+            height: 40px;
+            border-radius: 15px;
+            text-align: center;
+            font-size: 20px;
+        }
+    }
+    text-align: center;
+    .add-spell{
+        margin-bottom: 10px;
+        margin-top: 10px;
+        text-align: center;
+        .addlevel{
+            width: 25px;
+            height: 25px;
+            border-radius: 0;
+        }
+        .add{
+            width: 160px;
+            height: 25px;
+            border-radius: 0;
+        }
+        .addbutton{
+            width: 80px;
+            height: 30px;
+            font-size: 12.5px;
+            border-radius: 10px;
+            &:hover{
+                cursor: pointer;
+            }
+        }
+    }
     div{
         margin-bottom: 5px;
         margin-top: 5px;
     }
+    
     .spell-row{
         border: 0;
+        .spell-title{
+            display: flex;
+            justify-content: start;
+        }
+        
+        form{
+            display: flex;
+            justify-content: space-evenly;
+            .slot-inputs{
+                text-align: center;
+                display: flex;
+                align-items: center;
+                div{
+                    margin-left: 10px;
+                }
+                p{
+                    margin: 0;
+                }
+            }
+        }
     }
     .spell-line{
         border: 0;
+        margin-top: 10px;
     }
 }
 
@@ -631,7 +849,11 @@ cursor: pointer;
     display: flex;
     justify-content: center;
     width: 100%;
+    
     .content{
+        .headerhome{
+            @include border();
+        }
         flex-direction: column;
         margin-top: 100px;
         display: flex;
@@ -685,7 +907,8 @@ cursor: pointer;
 }
 
 .character-info{
-    border: 0;
+    
+    @include border();
     text-align: center;
     background-color: tan;
     border-radius: 15px;
@@ -735,7 +958,8 @@ cursor: pointer;
 }
 
 .proficiencies{
-    
+    @include border();
+    height: 500px;
     display: grid;
     grid-row-gap: 5px;
     grid-column-gap: 5px;
@@ -768,7 +992,198 @@ cursor: pointer;
     
 
 }
+.equipment{
+    @include border();
+    height: 500px;
+    display: grid;
+    grid-row-gap: 5px;
+    grid-column-gap: 5px;
+    grid-template-columns: 100%;
+    grid-template-rows: 100px 100px auto 100px;
+    grid-template-areas:
+    "coin" 
+    "equipment"
+    "equipmentlist"
+    "equipmenttext"
+    ;
+    background-color: tan;
+    border-radius: 15px;
+    display: grid;
+    flex-direction: column;
+    text-align: center;
+    input{
 
+        margin: 5px;
+        text-align: center;
+        height: 40px;
+        
+    }
+    .add-equipment{
+        display: flex;
+        justify-content: center;
+        .equipbtn{
+            height: 30px;
+            font-size: 12px;
+        }
+    }
+    button{
+        width: 100px;
+        border-radius: 15px;
+        background-color: white;
+        &:hover{
+            cursor: pointer;
+        }
+    }
+    .coin{
+        .coin-item{
+            h2{
+                margin: 5px;
+            }
+            background-color: gray;
+            border: 2px;
+            border-style: solid;
+            border-radius: 15px;
+            margin-right: 5px;
+            margin-left: 5px;
+            text-align: center;
+        }
+        p{
+            margin: 0;
+        }
+        grid-area: coin;
+        .copper{
+            background-color: coral;
+            border-radius: 10px;
+            width: 90px;
+            .copper-input{
+                font-size: 20px;
+                width: 40px;
+                border-radius: 10px;
+            }
+        }
+        .silver{
+            background-color: silver;
+            width: 90px;
+            .silver-input{
+                font-size: 20px;
+                width: 40px;
+                border-radius: 10px;
+            }
+        }
+        .gold{
+            background-color: gold;
+            width: 90px;
+            .gold-input{
+                font-size: 20px;
+                width: 40px;
+                border-radius: 10px;
+            }
+        }
+        display: flex;
+        justify-content: space-evenly
+    }
+    
+}
+
+
+.features{
+    @include border();
+    height: 500px;
+    display: grid;
+    grid-row-gap: 5px;
+    grid-column-gap: 5px;
+    grid-template-columns: 100%;
+    grid-template-rows: 100px auto 100px;
+    grid-template-areas: 
+    "feature"
+    "featurelist"
+    "featuretext"
+    ;
+    background-color: tan;
+    border-radius: 15px;
+    display: grid;
+    flex-direction: column;
+    text-align: center;
+    input{
+        margin: 5px;
+        text-align: center;
+        height: 30px;
+        
+    }
+    button{
+        width: 100px;
+        border-radius: 15px;
+        background-color: white;
+        &:hover{
+            cursor: pointer;
+        }
+    }
+    
+
+}
+.attacks{
+    margin-top: 5px;
+
+    display: grid;
+    grid-row-gap: 5px;
+    grid-column-gap: 5px;
+    grid-template-columns: 100%;
+    grid-template-rows: 100px auto 50px;
+    grid-template-areas: 
+    "attack"
+    "attacklist"
+    "attacktext"
+    ;
+    background-color: tan;
+    border-radius: 15px;
+    flex-direction: column;
+    text-align: center;
+    input{
+        margin: 5px;
+        text-align: center;
+        height: 30px;
+        
+    }
+    button{
+        width: 100px;
+        border-radius: 15px;
+        background-color: white;
+        &:hover{
+            cursor: pointer;
+        }
+    }
+    
+
+}
+
+
+.add-equipment{
+    grid-area: equipment;
+}
+.equipment-list{
+    grid-area: equipmentlist;
+}
+.equipment-text{
+    grid-area: equipmenttext;
+}
+.add-feature{
+    grid-area: feature;
+}
+.feature-list{
+    grid-area: featurelist;
+}
+.feature-text{
+    grid-area: featuretext;
+}
+.add-attack{
+    grid-area: attack;
+}
+.attack-list{
+    grid-area: attacklist;
+}
+.attack-text{
+    grid-area: attacktext;
+}
 .add-prof{
     grid-area: prof;
 }
@@ -778,16 +1193,23 @@ cursor: pointer;
 .prof-text{
     grid-area: proftext;
 }
-
 .editing-form{
+    form{
+        display: flex;
+        flex-direction: column;
+    }
     border-radius: 15px;
     background-color: tan;
     text-align: center;
-    input{
+    .editcontent{
         margin-top: 3px;
         width: 300px;
         height: 35px;
         text-align: center;
+    }
+    h4{
+        margin: 0;
+        text-decoration: underline;
     }
     button{
         text-align: center;
@@ -798,5 +1220,236 @@ cursor: pointer;
         &:hover{
             cursor: pointer;
         }
+    }
+}
+
+.attacksandweapons{
+    height: auto;
+    margin-top: 0px;
+    @include border();
+    background-color: tan;
+    border-radius: 15px;
+    .weapons{
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows:  100px auto 50px;
+    grid-template-areas: 
+    "weapon"
+    "weapons"
+    "bottomrow"
+    ;
+    background-color: tan;
+    border-radius: 15px;
+    flex-direction: column;
+    text-align: center;
+    .bottom-row-weapon{
+        display: flex;
+        text-decoration: underline;
+        justify-content: space-around;
+    }
+    input{
+        margin: 5px;
+        text-align: center;
+        height: 30px;
+        width: 135px;
+    }
+    .weapon-form-container{
+        display: flex;
+        flex-direction: row;
+        // justify-content:center;
+        align-items: center;
+    }
+    .addweaponbutton{
+        width: 25px;
+        height: 25px;
+        font-size: 18px;
+        border-radius: 15px;
+        background-color: white;
+        &:hover{
+            cursor: pointer;
+        }
+    }
+    .editweaponbutton{
+        width: 100px;
+        border-radius: 15px;
+        background-color: white;
+        &:hover{
+            cursor: pointer;
+        }
+    }
+    button{
+        width: 600px;
+        border-radius: 0px;
+        background-color: white;
+        &:hover{
+            cursor: pointer;
+        }
+    }
+    .weapon{
+        background-color: lightgray;
+    }
+    }
+}
+.weapon-form{
+    grid-area: weapon;
+}
+.weaponlist{
+    grid-area: weapons;
+}
+.bottom-row-weapon{
+    grid-area: bottomrow;
+}
+.card-container{
+    
+    :hover{
+        cursor: pointer;
+    }
+    margin: 20px;
+    display: flex;
+    justify-content: center;
+    .char-card{
+        @include border();
+        .char-img{
+            border-radius: 100px;
+        }
+        background-color: tan;
+        &:hover{
+            background-color: rgb(216, 190, 155);
+        
+        }
+        grid-row-gap: 5px;
+        grid-column-gap: 10px;
+        border-radius: 15px;
+        text-align: center;
+        display: grid;
+        grid-template-columns: 200px 100px 100px 100px 100px 107px;
+        grid-template-rows:  100px auto;
+        grid-template-areas: 
+        "imgdata nametext racetext classtext subclasstext leveltext"
+        "imgdata namedata racedata classdata subclassdata leveldata"
+        
+        ;
+    }
+}
+
+@mixin charbox{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border-radius: 15px;
+    width: 100px;
+    font-size: 20px;
+    margin: 0px;
+    margin-bottom: 7px
+    
+}
+
+
+.char-name{
+    @include charbox();
+    background-color: transparent;
+    text-decoration: underline;
+    grid-area: nametext;
+   
+}
+.char-race{
+    @include charbox();
+    background-color: transparent;
+    text-decoration: underline;
+    grid-area: racetext;
+}
+.char-class{
+    @include charbox();
+    background-color: transparent;
+    text-decoration: underline;
+    grid-area: classtext;
+}
+.char-subclass{
+    @include charbox();
+    background-color: transparent;
+    text-decoration: underline;
+    grid-area: subclasstext;
+}
+.char-level{
+    @include charbox();
+    background-color: transparent;
+    text-decoration: underline;
+    grid-area: leveltext;
+}
+.char-name2{
+    @include border();
+    @include charbox();
+    grid-area: namedata;
+}
+.char-race2{
+    @include border();
+    @include charbox();
+    grid-area: racedata;
+}
+.char-class2{
+    @include border();
+    @include charbox();
+    grid-area: classdata;
+}
+.char-subclass2{
+    @include border();
+    @include charbox();
+    grid-area: subclassdata;
+}
+.char-level2{
+    @include border();
+    @include charbox();
+    margin-right: 10px;
+    grid-area: leveldata;
+}
+.char-img{
+    @include border();
+    width: 195px;
+    margin: 6px;
+    grid-area: imgdata;
+    font-size: 20px;
+}
+
+
+.btn-container{
+    display: flex;
+    justify-content: center;
+    .newchar{
+        text-align: center;
+        background-color: gray;
+        width: 300px;
+        height: 50px;
+        &:hover{
+            cursor: pointer;
+            color: rgb(165, 4, 4);
+            background-color: rgb(163, 163, 163);
+        }
+    }
+}
+
+.character-stats{
+    background-color: tan;
+    border-radius: 15px;
+    @include border();
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    .stat-title{
+        text-decoration: underline;
+        margin: 0;
+    }
+    .stat{
+        text-align: center;
+        width: 30px;
+        border-radius: 25px;
+    }
+    .stat-data{
+        margin: 0;
+        text-align: center;
+        background-color: #888;
+        width: 50px;
+        height: 30px;
     }
 }

@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
+import useCollapse from 'react-collapsed'
 
 export default function Equipment(props){
+    const { getCollapseProps, getToggleProps, isExpanded } = useCollapse()
     const [editing, setEditing] = useState(false)
     const [form, setForm] = useState({})
     const [msg, setMsg] = useState('')
@@ -75,8 +77,11 @@ export default function Equipment(props){
     const equipmentEdit = ()=>{
         if(editing === false){
             return(
-                <div>
-                    <p>Note: {form.note}</p>
+                <div className='expand-equipment'>
+                    <button {...getToggleProps()} className='equipmentnote'>
+                        {isExpanded ? `${form.note}` : `${form.note}`}
+                    </button>
+                    <section {...getCollapseProps()}><div><button onClick={edit} className='edit-equipment-button' >{editing ? 'save' : 'edit'}</button></div></section>       
                 </div>
             )
         } else{
@@ -86,12 +91,13 @@ export default function Equipment(props){
                         <input 
                             type='text'
                             id='note'
-                            placeholder='note'
+                            placeholder='Equipment'
                             value={form.note}
                             onChange={e => setForm ({ ...form, note: e.target.value})}
                             
                         />
                     </form>
+                    <button onClick={edit} >{editing ? 'save' : 'edit'}</button>
                     <button onClick={deleteEquipment} >delete</button>
                 </div>
             )
@@ -119,7 +125,7 @@ export default function Equipment(props){
     return(
         <div>
             {msg}
-            {equipmentEdit()} <button onClick={edit} >{editing ? 'save' : 'edit'}</button>
+            {equipmentEdit()} 
             
         </div>
     )

@@ -43,7 +43,8 @@ export default function NewCharacter(){
     
     
     return(
-        <div className='grid-container'>
+        <div className='character-container'>
+            <div className='character-form'>
             <h1>CharacterSheet Page</h1>
             {msg}
             <form onSubmit={handleSubmit} >
@@ -87,10 +88,13 @@ export default function NewCharacter(){
                         placeholder='Character Level'
                         onChange={e => setForm ({ ...form, level: e.target.value})}
                         />
-                <button type='submit'><h2>Save</h2></button>
+                        <div>
+                        <button type='submit'><h2>Create New Character</h2></button>
+
+                        </div>
             </form>
                 
-
+            </div>
         </div>
     )
 }

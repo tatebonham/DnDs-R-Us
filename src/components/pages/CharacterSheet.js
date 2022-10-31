@@ -14,6 +14,7 @@ import React from 'react'
 export default function CharacterSheet(){
     
     const [active, setActive] = useState(false)
+    const [casting, setCasting] = useState(false)
     const [edit, setEdit] = useState(false)
     const [hd, sethd] = useState({
         amount: ''
@@ -635,48 +636,56 @@ export default function CharacterSheet(){
                 </div>
             </div>
             <div className='character-stats'>
-               <p>strength: {stats.strength}</p>
-                <input 
+                    <p className='stat-title'>Strength:</p>
+                   <h3 className='stat-data' >{stats.strength}</h3>
+
+                <input className='stat'
                     type='number'
                     id='strength'
                     value={form.strength}
                     placeholder='Strength'
                     onChange={e => setForm ({ ...form, strength: e.target.value})}
                     />
-                <label htmlFor='dexterity'><h2>dexterity: {stats.dexterity}</h2></label>
-                <input 
+                <p className='stat-title'>Dexterity: </p>
+                <h3 className='stat-data' >{stats.dexterity}</h3>
+                <input className='stat'
                     type='number'
                     id='dexterity'
                     value={form.dexterity}
                     placeholder='Dexterity'
                     onChange={e => setForm ({ ...form, dexterity: e.target.value})}
                     />
-                <label htmlFor='constitution'><h2>constitution: {stats.constitution}</h2></label>
-                <input 
+
+                    <p className='stat-title'>Constitution: </p>
+                <h3 className='stat-data' >{stats.constitution}</h3>
+                <input className='stat'
                     type='number'
                     id='constitution'
                     value={form.constitution}
                     placeholder='Constitution'
                     onChange={e => setForm ({ ...form, constitution: e.target.value})}
                     />
-                <label htmlFor='intelligence'><h2>intelligence: {stats.intelligence}</h2></label>
-                <input 
+                <p className='stat-title'>Intelligence: </p>
+                <h3 className='stat-data' >{stats.intelligence}</h3>
+                <input className='stat'
                     type='number'
                     id='intelligence'
                     value={form.intelligence}
                     placeholder='Intelligence'
                     onChange={e => setForm ({ ...form, intelligence: e.target.value})}
                     />
-                <label htmlFor='wisdom'><h2>wisdom: {stats.wisdom}</h2></label>
-                <input 
+                <p className='stat-title'>Wisdom: </p>
+                <h3 className='stat-data' >{stats.wisdom}</h3>
+                <input className='stat'
                     type='number'
                     id='wisdom'
                     value={form.wisdom}
                     placeholder='Wisdom'
                     onChange={e => setForm ({ ...form, wisdom: e.target.value})}
                     />
-                <label htmlFor='charisma'><h2>charisma: {stats.charisma}</h2></label>
-                <input 
+                <p className='stat-title'>Charisma: </p>
+                <h3 className='stat-data' >{stats.charisma}</h3>
+                <input className='stat'
                     type='number'
                     id='charisma'
                     value={form.charisma}
@@ -901,26 +910,58 @@ export default function CharacterSheet(){
                     </div>
                     <h2 className='prof-text'>Proficiencies and Languages</h2>
             </div>
-            <div className='equipment'>
-                    <h2>Equipment</h2>
-                    {equipmentList()}
+            <div className='equipment'>   
+                    <div className='coin'>
+                        <div className='gold coin-item'>
+                            <input className='gold-input'
+                                    type='number'
+                                    id='note'
+                                    placeholder='0'
+                                    value={form.gold}
+                                    onChange={e => setForm ({ ...form, gold: e.target.value})}
+                                    />
+                                    <h2>gold</h2>
+                        </div>
+                        <div className='silver coin-item'>
+                            <input className='silver-input'
+                                    type='number'
+                                    id='note'
+                                    placeholder='0'
+                                    value={form.silver}
+                                    onChange={e => setForm ({ ...form, silver: e.target.value})}
+                                    />
+                                    <h2>silver</h2>
+                        </div>
+                        <div className='copper coin-item'>
+                            <input className='copper-input'
+                                    type='number'
+                                    id='note'
+                                    placeholder='0'
+                                    value={form.copper}
+                                    onChange={e => setForm ({ ...form, copper: e.target.value})}
+                                    />
+                                    <h2>copper</h2>
+                        </div>
+                    </div>
                         <div  className='add-equipment'>
                             <form onSubmit={handleEquipmentSubmit} >
                                 <input 
                                     type='text'
                                     id='note'
-                                    placeholder='note'
+                                    placeholder='New Equipment'
                                     value={equipmentForm.note}
                                     onChange={e => setEquipmentForm ({ ...equipmentForm, note: e.target.value})}
                                 />
                                 
-                                <button type='submit'>Add Equipment</button>
+                                <button type='submit' className='equipbtn'>Add Equipment</button>
                             </form>
                 </div>
+                    <div equipment-list>
+                        {equipmentList()}
+                    </div>
+                <h2 className='equipment-text' >Equipment</h2>
             </div>
             <div className='features'>
-                    <h2>Features and Traits</h2>
-                    {featuresList()}
                         <div  className='add-feature'>
                             <form onSubmit={handleFeatureSubmit} >
                                 <input 
@@ -934,11 +975,20 @@ export default function CharacterSheet(){
                                 <button type='submit'>Add feature</button>
                             </form>
                 </div>
+                <h2 className='feature-text'>Features and Traits</h2>
+                    <div className='feature-list'>
+                        {featuresList()}
+                    </div>
+
             </div>
             <div className='attacksandweapons'>
                 <div className='weapons'>
-                    {weaponsList()}
-                    <form onSubmit={handleSubmit} >
+                <div className='bottom-row-weapon'><p>Weapon Name</p><p>Damage Amount</p><p>Damage Type</p></div>
+                    <div className='weaponlist'>
+                        {weaponsList()}
+                    </div>
+                    <div className='weapon-form-container'>
+                    <form onSubmit={handleSubmit} className='weapon-form' >
                     <input 
                         type='text'
                         id='name'
@@ -966,23 +1016,28 @@ export default function CharacterSheet(){
                     <input 
                         type='text'
                         id='note'
-                        placeholder='note'
+                        placeholder='description'
                         value={weaponForm.note}
                         onChange={e => setWeaponForm ({ ...weaponForm, note: e.target.value})}
                         
                     />
                     
-                    <button type='submit'>Add Weapon</button>
+                    <button type='submit' className='addweaponbutton'>+</button>
                 </form>
+                </div>
                 </div>  
                 <div className='attacks'>
-                    {attacksList()}
+                    <h2 className='attack-text'>Weapons and Attacks</h2>
+                    <div className='attack-list'>
+                        {attacksList()}
+                    </div>
                         <div  className='add-attack'>
                             <form onSubmit={handleAttackSubmit} >
                                 <input 
                                     type='text'
                                     id='note'
-                                    placeholder='note'
+                                    placeholder='New Attack'
+                                    require
                                     value={attackForm.note}
                                     onChange={e => setAttackForm ({ ...attackForm, note: e.target.value})}
                                 />
@@ -995,7 +1050,7 @@ export default function CharacterSheet(){
             <div className='spells'>
                     <div  className='add-spell'>
                         <form onSubmit={handleSpellSubmit} >
-                            <input 
+                            <input className='addlevel'
                                 type='text'
                                 id='level'
                                 placeholder='level'
@@ -1003,24 +1058,24 @@ export default function CharacterSheet(){
                             onChange={e => setSpellForm ({ ...spellForm, level: e.target.value})}
                                 
                             />
-                            <input 
+                            <input className='add'
                                 type='text'
                                 id='name'
-                                placeholder='name'
+                                placeholder='Spell Name'
                                 value={spellForm.name}
                                 onChange={e => setSpellForm ({ ...spellForm, name: e.target.value})}
                                 
                             />
-                            <input 
+                            <input className='add'
                                 type='text'
                                 id='note'
-                                placeholder='note'
+                                placeholder='Description'
                                 value={spellForm.note}
                                 onChange={e => setSpellForm ({ ...spellForm, note: e.target.value})}
                                 
                             />
                             
-                            <button type='submit'>Add Spell</button>
+                            <button type='submit' class='addbutton'>Add Spell</button>
                         </form>
                     </div>
                     <div className='level-zero-spells spell-row'>
@@ -1029,181 +1084,272 @@ export default function CharacterSheet(){
                     </div>
                     <div className='level-one-spells spell-row'>
                         <form>
-                            <label htmlFor='img_url'><h2>Level One Spells</h2></label>
+                            <div className='spell-title'>
+                            <h2>Level One Spells</h2>
+                            </div>
+                            <div className='slot-inputs'>
+                                <div>
+                            <p>Total</p>
                             <input 
                                 type='number'
                                 id='onetotal'
                                 value={form.onetotal}
-                                placeholder='Character onetotal'
+                                placeholder='0'
                                 onChange={e => setForm ({ ...form, onetotal: e.target.value})}
                                 />
+                            </div>
+                            <div>
+                            <p>Remaining</p>
                             <input 
                                 type='number'
                                 id='oneremaining'
                                 value={form.oneremaining}
-                                placeholder='Character oneremaining'
+                                placeholder='0'
                                 onChange={e => setForm ({ ...form, oneremaining: e.target.value})}
                                 />
+                                </div>
+                            </div>
                         </form>
                         {spellsList(1)}
                     </div>
                     <div className='level-two-spells spell-row'>
                         <form>
-                            <h2>Level two Spells</h2>
+                            <div className='spell-title'>
+                                <h2>Level Two Spells</h2>
+                            </div>
+                            
+                            <div className='slot-inputs'>
+                            <div>
+                            <p>Total</p>
                             <input 
                                 type='number'
                                 id='twototal'
                                 value={form.twototal}
-                                placeholder='Character twototal'
+                                placeholder='0'
                                 onChange={e => setForm ({ ...form, twototal: e.target.value})}
                                 />
+                                </div>
+                                <div>
+                            <p>Remaining</p>
                             <input 
                                 type='number'
                                 id='tworemaining'
                                 value={form.tworemaining}
-                                placeholder='Character tworemaining'
+                                placeholder='0'
                                 onChange={e => setForm ({ ...form, tworemaining: e.target.value})}
                                 />
+                                </div>
+                            </div>
                         </form>
                         {spellsList(2)}
                     </div>
                     <div className='level-three-spells spell-row'>
                         <form>
-                            <h2>Level three Spells</h2>
+                            <div className='spell-title'>
+                            <h2>Level Three Spells</h2>
+                            </div>
+                            <div className='slot-inputs'>
+                            <div>
+                            <p>Total</p>
                             <input 
                                 type='number'
                                 id='threetotal'
                                 value={form.threetotal}
-                                placeholder='Character threetotal'
+                                placeholder='0'
                                 onChange={e => setForm ({ ...form, threetotal: e.target.value})}
                                 />
+                                </div>
+                            <div>
+                            <p>Remaining</p>
                             <input 
                                 type='number'
                                 id='threeremaining'
                                 value={form.threeremaining}
-                                placeholder='Character threeremaining'
+                                placeholder='0'
                                 onChange={e => setForm ({ ...form, threeremaining: e.target.value})}
                                 />
+                                </div>
+                            </div>
                         </form>
                         {spellsList(3)}
                     </div>
                     <div className='level-four-spells spell-row'>
                         <form>
-                            <h2>Level four Spells</h2>
+                        <div className='spell-title'>
+                            <h2>Level Four Spells</h2>
+                            </div>
+                            <div className='slot-inputs'>
+                                <div>
+                            <p>Total</p>
                             <input 
                                 type='number'
                                 id='fourtotal'
                                 value={form.fourtotal}
-                                placeholder='Character fourtotal'
+                                placeholder='0'
                                 onChange={e => setForm ({ ...form, fourtotal: e.target.value})}
                                 />
+                                </div>
+                            <div>
+                            <p>Remaining</p>
                             <input 
                                 type='number'
                                 id='fourremaining'
                                 value={form.fourremaining}
-                                placeholder='Character fourremaining'
+                                placeholder='0'
                                 onChange={e => setForm ({ ...form, fourremaining: e.target.value})}
                                 />
+                                </div>
+                            </div>
                         </form>
                         {spellsList(4)}
                     </div>
                     <div className='level-five-spells spell-row'>
                         <form>
-                            <h2>Level five Spells</h2>
+                        <div className='spell-title'>
+                            <h2>Level Five Spells</h2>
+                            </div>
+                            <div className='slot-inputs'>
+                                <div>
+                            <p>Total</p>
                             <input 
                                 type='number'
                                 id='fivetotal'
                                 value={form.fivetotal}
-                                placeholder='Character fivetotal'
+                                placeholder='0'
                                 onChange={e => setForm ({ ...form, fivetotal: e.target.value})}
                                 />
+                                </div>
+                            <div>
+                            <p>Remaining</p>
                             <input 
                                 type='number'
                                 id='fiveremaining'
                                 value={form.fiveremaining}
-                                placeholder='Character fiveremaining'
+                                placeholder='0'
                                 onChange={e => setForm ({ ...form, fiveremaining: e.target.value})}
                                 />
+                                 </div>
+                            </div>
                         </form>
                         {spellsList(5)}
                     </div>
                     <div className='level-six-spells spell-row'>
                         <form>
-                            <h2>Level six Spells</h2>
+                        <div className='spell-title'>
+                            <h2>Level Six Spells</h2>
+                            </div>
+                            <div className='slot-inputs'>
+                                <div>
+                            <p>Total</p>
                             <input 
                                 type='number'
                                 id='sixtotal'
                                 value={form.sixtotal}
-                                placeholder='Character sixtotal'
+                                placeholder='0'
                                 onChange={e => setForm ({ ...form, sixtotal: e.target.value})}
                                 />
+                                </div>
+                            <div>
+                            <p>Remaining</p>
                             <input 
                                 type='number'
                                 id='sixremaining'
                                 value={form.sixremaining}
-                                placeholder='Character sixremaining'
+                                placeholder='0'
                                 onChange={e => setForm ({ ...form, sixremaining: e.target.value})}
                                 />
+                                </div>
+                            </div>
                         </form>
                         {spellsList(6)}
                     </div>
                     <div className='level-seven-spells spell-row'>
                         <form>
-                            <h2>Level seven Spells</h2>
+                        <div className='spell-title'>
+                            <h2>Level Seven Spells</h2>
+                            </div>
+                            <div className='slot-inputs'>
+                                <div>
+                            <p>Total</p>
                             <input 
                                 type='number'
                                 id='seventotal'
                                 value={form.seventotal}
-                                placeholder='Character seventotal'
+                                placeholder='0'
                                 onChange={e => setForm ({ ...form, seventotal: e.target.value})}
                                 />
+                                </div>
+                            <div>
+                            <p>Remaining</p>
                             <input 
                                 type='number'
                                 id='sevenremaining'
                                 value={form.sevenremaining}
-                                placeholder='Character sevenremaining'
+                                placeholder='0'
                                 onChange={e => setForm ({ ...form, sevenremaining: e.target.value})}
                                 />
+                                </div>
+                            </div>
                         </form>
                         {spellsList(7)}
                     </div>
                     <div className='level-eight-spells spell-row'>
                         <form>
-                            <h2>Level eight Spells</h2>
+                        <div className='spell-title'>
+                            <h2>Level Eight Spells</h2>
+                            </div>
+                            <div className='slot-inputs'>
+                                <div>
+                            <p>Total</p>
                             <input 
                                 type='number'
                                 id='eighttotal'
                                 value={form.eighttotal}
-                                placeholder='Character eighttotal'
+                                placeholder='0'
                                 onChange={e => setForm ({ ...form, eighttotal: e.target.value})}
                                 />
+                                </div>
+                            <div>
+                            <p>Remaining</p>
                             <input 
                                 type='number'
                                 id='eightremaining'
                                 value={form.eightremaining}
-                                placeholder='Character eightremaining'
+                                placeholder='0'
                                 onChange={e => setForm ({ ...form, eightremaining: e.target.value})}
                                 />
+                                 </div>
+                            </div>
                         </form>
                         {spellsList(8)}
                     </div>
                     <div className='level-nine-spells spell-row'>
                         <form>
+                        <div className='spell-title'>
                             <h2>Level nine Spells</h2>
+                            </div>
+                            <div className='slot-inputs'>
+                                <div>
+                            <p>Total</p>
                             <input 
                                 type='number'
                                 id='ninetotal'
                                 value={form.ninetotal}
-                                placeholder='Character ninetotal'
+                                placeholder='0'
                                 onChange={e => setForm ({ ...form, ninetotal: e.target.value})}
                                 />
+                                </div>
+                            <div>
+                            <p>Remaining</p>
                             <input 
                                 type='number'
                                 id='nineremaining'
                                 value={form.nineremaining}
-                                placeholder='Character nineremaining'
+                                placeholder='0'
                                 onChange={e => setForm ({ ...form, nineremaining: e.target.value})}
                                 />
+                                </div>
+                            </div>
                         </form>
                         {spellsList(9)}
                     </div>
@@ -1215,6 +1361,21 @@ export default function CharacterSheet(){
                     <button className='close' onClick={deleteCharacter} >Delete</button>
                 </div>
             </div>
+            {/* <div id="myModal" className="modal" style={casting? {display: 'block'} : {display: 'none'} }>
+                <div className="modal-content">
+                    <p>Are you sure you want to delete this character?</p>
+                    <button className='close' onClick={cast} >Cancel</button>
+                    <button className='close' onClick={()=>{castSpell(1)}} >1st</button>
+                    <button className='close' onClick={()=>{castSpell(2)}} >2nd</button>
+                    <button className='close' onClick={()=>{castSpell(3)}} >3rd</button>
+                    <button className='close' onClick={()=>{castSpell(4)}} >4th</button>
+                    <button className='close' onClick={()=>{castSpell(5)}} >5th</button>
+                    <button className='close' onClick={()=>{castSpell(6)}} >6th</button>
+                    <button className='close' onClick={()=>{castSpell(7)}} >7th</button>
+                    <button className='close' onClick={()=>{castSpell(8)}} >8th</button>
+                    <button className='close' onClick={()=>{castSpell(9)}} >9th</button>
+                </div>
+            </div> */}
         </div>
     )
 }

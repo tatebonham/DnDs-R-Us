@@ -81,9 +81,9 @@ export default function Spells(props){
             return(
                 <div className='expand-spell'>
                     <button {...getToggleProps()}>
-                        {isExpanded ? `Spell Name: ${form.name}` : `Spell Name: ${form.name}`}
+                        {isExpanded ? `Spell: ${form.name}` : `Spell: ${form.name}`}
                     </button>
-                    <section {...getCollapseProps()}>Note: {form.note} 🙈 <div><button onClick={edit} className='edit-button' >{editing ? 'save' : 'edit'}</button></div></section>
+                    <section {...getCollapseProps()}>Description: {form.note} 🙈 <div><button onClick={edit} className='edit-button' >{editing ? 'save' : 'edit'}</button></div></section>
                     
                 </div>
                 
@@ -92,7 +92,8 @@ export default function Spells(props){
             return(
                 <div className='editing-form'>
                     <form>
-                        <input 
+                        <h4>Spell Level</h4>
+                        <input className='editcontent'
                             type='text'
                             id='level'
                             placeholder='level'
@@ -100,7 +101,8 @@ export default function Spells(props){
                             onChange={e => setForm ({ ...form, level: e.target.value})}
                             
                         />
-                        <input 
+                        <h4>Spell Name</h4>
+                        <input className='editcontent'
                             type='text'
                             id='name'
                             placeholder='name'
@@ -108,7 +110,8 @@ export default function Spells(props){
                             onChange={e => setForm ({ ...form, name: e.target.value})}
                             
                         />
-                        <input 
+                        <h4>Description</h4>
+                        <input className='editcontent'
                             type='text'
                             id='note'
                             placeholder='note'
