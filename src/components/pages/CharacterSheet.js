@@ -808,35 +808,39 @@ export default function CharacterSheet(){
                     </div>
                     <div className='bottom-row' >
                         <div className='hit-dice'>
-                            <h2>Total Hit Dice: </h2>
-                            <input 
-                                type='string'
-                                id='totalhitdice'
-                                value={form.totalhitdice}
-                                placeholder='Total Hit Dice'
-                                onChange={e => setForm ({ ...form, totalhitdice: e.target.value})}
-                            />
-                            <h2>Current Hit Dice: </h2>
-                            <input 
-                                type='number'
-                                id='currenthitdice'
-                                value={form.currenthitdice}
-                                placeholder='Current Hit Dice'
-                                onChange={e => setForm ({ ...form, currenthitdice: e.target.value})}
-                            />
+                            <div className='total'>
+                                <h2>Total Hit Dice: </h2>
+                                <input 
+                                    type='string'
+                                    id='totalhitdice'
+                                    value={form.totalhitdice}
+                                    placeholder='Total Hit Dice'
+                                    onChange={e => setForm ({ ...form, totalhitdice: e.target.value})}
+                                />
+                            </div>
+                            <div className='current'>
+                                <h2>Current Hit Dice: </h2>
+                                <input 
+                                    type='number'
+                                    id='currenthitdice'
+                                    value={form.currenthitdice}
+                                    placeholder='Current Hit Dice'
+                                    onChange={e => setForm ({ ...form, currenthitdice: e.target.value})}
+                                />
+                            </div>
                         </div>
                         <div className='heal-damage'>
-                                <div>
+                                <div className='hdinput'>
                                     <input 
                                         type='number'
                                         id='hd'
                                         value={hd.amount}
-                                        placeholder='Total Hit Dice'
+                                        placeholder='0'
                                         onChange={e => sethd ({ ...hd, amount: e.target.value})}
                                         />
                                 </div>
-                                <button onClick={healFor}>Heal For</button>
-                                <button onClick={damageFor}>Damage For</button>
+                                <button className='heal-me' onClick={healFor}>Heal Me!</button>
+                                <button className='damage-me' onClick={damageFor}>Damage Me!</button>
                             
                         </div>
                     </div>
