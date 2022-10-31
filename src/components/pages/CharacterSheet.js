@@ -629,7 +629,9 @@ export default function CharacterSheet(){
                         - Inspiration 
                         </h2>
                     </div>
-                    <h3>ProficiencyBonus: +{proficiencyBonus()}</h3>
+                    <div className='pb'>
+                        <h3>+{proficiencyBonus()} - Proficiency Bonus</h3>
+                    </div>
                     <div className='skills-chart'>
                         <div className='skill-line'>       
                             <p><button onClick={e => toggleSkill(e, 'acrobatics')} style={form.acrobatics ? {backgroundColor: '#1167b1'} : {backgroundColor: 'white'}} ></button>

@@ -68,15 +68,21 @@ input::-webkit-inner-spin-button {
     margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
 }
 
-@mixin outerInputBox{
+@mixin outerBox{
+    margin-bottom: 2px;
+    background-color: tan;
+    display: flex;
     border: 2px;
-    border-color: black;
     border-style: solid;
+    height: 50px;
+    border-radius: 15px;
+    align-items: center;
 
 }
 
 @mixin inputBox {
-    width: 25px;
+    width: 35px;
+    height: 35px;
     background-color: white;
     color: black;
     border: 0px;
@@ -92,18 +98,24 @@ input::-webkit-inner-spin-button {
 
 .skills {
     .inspiration{
-        background-color: tan;
-        display: flex;
-        border: 2px;
-        border-style: solid;
-        height: 50px;
-        border-radius: 15px;
+        @include outerBox();
         input {
            @include inputBox();
         }
-        align-items: center;
+    }
+    .pb{
+        @include outerBox();
+        justify-content: center;
+    }
+    .skills-chart{
+        margin-bottom: 2px;
+        background-color: tan;
+        border: 2px;
+        border-style: solid;
+        border-radius: 15px;
     }
     .skill-line {
+        border: 0px;
         margin: 0;
         padding-bottom: 0px;
         padding-top: 0px;
@@ -115,8 +127,10 @@ input::-webkit-inner-spin-button {
             margin: 2px;
             margin-right: 5px;
             height: 17px;
+            border-radius: 15px;
         }
     }
+    border: 0px
 }
 
 .combat-info{
