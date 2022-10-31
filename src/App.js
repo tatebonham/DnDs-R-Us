@@ -11,6 +11,7 @@ import Register from './components/pages/Register'
 import MyCharacters from './components/pages/MyCharacters'
 import CharacterSheet from './components/pages/CharacterSheet'
 import NewCharacter from './components/pages/NewCharacter'
+import DmScreen from './components/pages/DmScreen.js';
 
 function App() {
   const [currentUser,setCurrentUser] =useState (null)
@@ -28,12 +29,13 @@ function App() {
           <BrowserRouter>
             <NavBar currentUser={currentUser} setCurrentUser={setCurrentUser}/>
             <Routes>
-              <Route path='/' element={<Home/>} />
+              <Route path='/' element={<Home currentUser={currentUser} setCurrentUser={setCurrentUser} />} />
               <Route path='/login' element={<Login currentUser={currentUser} setCurrentUser={setCurrentUser} />} />
               <Route path='/register' element={<Register currentUser={currentUser} setCurrentUser={setCurrentUser}/>} />
               <Route path='/mycharacters' element={currentUser ? <MyCharacters currentUser={currentUser} setCurrentUser={setCurrentUser}/> : <Navigate to='/login' />} />
               <Route path='/newcharacter' element={currentUser ? <NewCharacter currentUser={currentUser} setCurrentUser={setCurrentUser}/> : <Navigate to='/login' />} />
               <Route path='/charactersheet/:id' element={<CharacterSheet currentUser={currentUser} setCurrentUser={setCurrentUser}/>} />
+              <Route path='/dmscreen' element={<DmScreen currentUser={currentUser} setCurrentUser={setCurrentUser}/>} />
             </Routes>
             {/* <Footer/> */}
           </BrowserRouter>

@@ -36,7 +36,7 @@ export default function NavBar({currentUser, setCurrentUser}){
             <Link to= "/register" style={{textDecoration: 'none'}}> <p>Sign Up</p> </Link>
         </div>
         <div className="link-item">
-            <Link to= "/login" style={{textDecoration: 'none'}} ><p>Log In</p></Link> 
+            <Link to= "/login" style={{textDecoration: 'none'}} ><p>Login</p></Link> 
         </div>
         </>
 

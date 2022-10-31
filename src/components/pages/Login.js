@@ -44,30 +44,36 @@ export default function Login( {currentUser, setCurrentUser}){
 
 
     return(
-        <div>
-            <h1> Login to access your Bucket List </h1>
-            {msg}
-            <form onSubmit={handleSubmit}>
-                <label htmlFor="email"><h2>Email:</h2></label>
-                    <input
-                        type = "text"
-                        id = "email"
-                        placeholder = "your email"
-                        onChange ={e=> setEmail(e.target.value)}
-                        value={email}
-                    />
-                <label htmlFor="password"><h2>Password:</h2></label> 
-                    <input
-                        type = "text"
-                        id = "password"
-                        placeholder = "enter your password"
-                        onChange={e => setPassword (e.target.value)}
-                        value={password}
-                    />
-                <button type="submit"><h2>Login</h2></button>
-            </form>
-            <div>
-                <p>Don't have an account? Click <Link to="/login"><u>here</u></Link> to sign up.</p>
+        <div className="login-container">
+            <div className="login-form">
+                <h1> Please enter your login information below </h1>
+                {msg}
+                <div>
+                <form onSubmit={handleSubmit}>
+                    <label htmlFor="email"><h2>Email:</h2></label>
+                        <input
+                            type = "text"
+                            id = "email"
+                            placeholder = "Enter Your Email"
+                            onChange ={e=> setEmail(e.target.value)}
+                            value={email}
+                        />
+                    <label htmlFor="password"><h2>Password:</h2></label> 
+                        <input
+                            type = "text"
+                            id = "password"
+                            placeholder = "Enter Your Password"
+                            onChange={e => setPassword (e.target.value)}
+                            value={password}
+                        />
+                        <div>
+                            <button type="submit"><h2>Log In</h2></button>
+                        </div>
+                </form>
+                </div>
+                <div>
+                    <p>Don't have an account? Click <Link to="/register"><u>here</u></Link> to sign up.</p>
+                </div>
             </div>
         </div>
     )

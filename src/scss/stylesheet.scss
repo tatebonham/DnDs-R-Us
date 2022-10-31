@@ -2,11 +2,6 @@ body {
     background-color: lemonchiffon;
 }
 
-div{
-    border: 1px;
-    border-color: black;
-    border-style: solid;
-}
 .routes{
     border: 0;
 }
@@ -18,7 +13,7 @@ div{
     align-items: center;
     justify-content: space-around;
     .logo{
-        
+        margin-top: 10px;
         width: 50vw;
         border: 0;
         display: flex;
@@ -51,6 +46,7 @@ div{
         }
     }
     .links{
+        margin-top: 10px;
         display: flex;
         justify-content: end;
         width: 50vw;
@@ -84,8 +80,102 @@ div{
 
 }
 
+.login-container{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    .login-form{
+        width: 700px;
+        h1{
+            padding: 10px;
+        }
+        border-radius: 15px;
+        display: flex;
+        flex-direction: column;
+        input{
+            font-size: 20px;
+            text-align: center;
+            width: 500px;
+            height: 60px;
+            border-radius: 15px;
+        }
+        button{
+            margin: 10px;
+            &:hover{
+                cursor: pointer;
+            }
+        }
+        label{
+            text-decoration: underline;
+            font-size: 20px;
+        }
+        margin-top:60px ;
+        background-color: tan;
+    }
+}
+.register-container{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    .register-form{
+        width: 700px;
+        h1{
+            padding: 10px;
+        }
+        border-radius: 15px;
+        display: flex;
+        flex-direction: column;
+        input{
+            font-size: 20px;
+            text-align: center;
+            width: 500px;
+            height: 60px;
+            border-radius: 15px;
+        }
+        button{
+            margin: 10px;
+            &:hover{
+                cursor: pointer;
+            }
+        }
+        label{
+            text-decoration: underline;
+            font-size: 20px;
+        }
+        margin-top:60px ;
+        background-color: tan;
+    }
+}
+
+.dmscreen-container{
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    .dmcontent{
+        margin-top: 100px;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        text-align: center;
+    }
+    h1{
+        display: flex;
+        align-items: center;
+        text-align: center;
+        border-radius: 15px;
+        padding: 10px;
+        background-color: tan;
+        width: 100%;
+        height: 100px;
+    }
+    p{
+        text-decoration: underline;
+    }
+}
+
 .grid-container {
-    margin-top: 15px;
+    margin-top: 0px;
     border: 0;
     justify-content: center;
     display: grid;
@@ -347,6 +437,9 @@ input::-webkit-inner-spin-button {
                 font-size: 22px;
             }
             button{
+                &:hover{
+                    cursor: pointer;
+                }
                 margin: 2px;
                 height: 25px;
                 border-radius: 25px;
@@ -362,6 +455,7 @@ input::-webkit-inner-spin-button {
 }
 
 .character-header{
+    margin-top: 50px;
     background-color: tan;
     border-radius: 15px;
     text-align: center;
@@ -384,7 +478,11 @@ input::-webkit-inner-spin-button {
         border-radius: 15px;
         background-color: white;
     }
+    
     button{
+        &:hover{
+            cursor: pointer;
+        }
         border-radius:10px;
         margin: 2px;
     }
@@ -446,10 +544,11 @@ cursor: pointer;
         margin-left: 15px;
         margin-right: 15px;
     }
-    :hover{
-        cursor: pointer;
-    }
+    
     button{
+        &:hover{
+            cursor: pointer;
+        }
         background-color: white;
         width: 600px;
         height: 25px;
@@ -466,10 +565,11 @@ cursor: pointer;
         margin-left: 15px;
         margin-right: 15px;
     }
-    :hover{
-        cursor: pointer;
-    }
+    
     button{
+        &:hover{
+            cursor: pointer;
+        }
         background-color: white;
         font-size: 18px;
         width: 425px;
@@ -492,4 +592,112 @@ cursor: pointer;
 
 .chars-container{
     text-align: center;
+}
+
+.home-container{
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    .content{
+        flex-direction: column;
+        margin-top: 100px;
+        display: flex;
+        justify-content: center;
+        width: 940px;
+        text-align: center;
+        .home-buttons{
+            display: flex;
+            justify-content: center;
+            flex-direction: row;
+            text-align: center;
+            
+            .home-buttons1{
+                border: 0;
+                margin-left: 20px;
+                border-right: 5px;
+                border-color: black;
+                border-style: solid;
+            }
+            .home-buttons2{
+                border: 0;
+                border-left: 5px;
+                border-color: black;
+                border-style: solid;
+            }
+            div{
+                margin: 0px;
+                background-color: gray;
+                width: 500px;
+                height: 300px;
+                &:hover{
+                    background-color: rgb(163, 163, 163);
+                    cursor: pointer;
+                }
+                
+            }
+            p{
+                font-size: 40px;
+                font-weight: bold;
+            }
+        }
+    }
+    h1{
+        text-align: center;
+        padding: 10px;
+        font-size: 40px;
+        border-radius: 15px;
+        background-color: tan;
+        width: 100%
+    }
+}
+
+.character-info{
+    border: 0;
+    text-align: center;
+    background-color: tan;
+    border-radius: 15px;
+    display: grid;
+    grid-row-gap: 5px;
+    grid-column-gap: 5px;
+    grid-template-columns: 33% 33% 33%;
+    grid-template-rows: 50% 50%;
+
+    grid-template-areas: 
+    "race class subclass"
+    "alignment background level"
+    ;
+    margin-top: 50px;
+    h3{
+        font-size: 20px;
+        margin: 0;
+    }
+    input{
+        font-size: 20px;
+        text-align: center;
+        margin-top: 20px;
+        width: 250px;
+        height: 50px;
+        border-radius: 15px;
+        
+    }
+}
+
+.race{
+    grid-area: race;
+}
+.class{
+    grid-area: class;
+}
+.subclass{
+    grid-area: subclass;
+}
+.alignment{
+    grid-area: alignment;
+}
+.background{
+    grid-area: background;
+}
+.level{
+    grid-area: level;
 }

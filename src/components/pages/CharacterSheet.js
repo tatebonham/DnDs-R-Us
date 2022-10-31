@@ -573,6 +573,7 @@ export default function CharacterSheet(){
                 <button className='delete' onClick={activeModal}>Delete Character</button>
             </div>
             <div className='character-info' >
+                <div className='race'>
                 <input 
                     type='text'
                     id='race'
@@ -580,6 +581,9 @@ export default function CharacterSheet(){
                     placeholder='Character Race'
                     onChange={e => setForm ({ ...form, race: e.target.value})}
                     />
+                    <h3>Race</h3>
+                </div>
+                <div className='class'>
                 <input 
                     type='text'
                     id='class'
@@ -587,7 +591,9 @@ export default function CharacterSheet(){
                     placeholder='Character Class'
                     onChange={e => setForm ({ ...form, class: e.target.value})}
                     />
-                
+                    <h3>Class</h3>
+                </div>
+                <div className='subclass'>
                 <input 
                     type='text'
                     id='subclass'
@@ -595,7 +601,9 @@ export default function CharacterSheet(){
                     placeholder='Character Subclass'
                     onChange={e => setForm ({ ...form, subclass: e.target.value})}
                     />
-                
+                    <h3>Subclass</h3>
+                </div>
+                <div className='alignment'>
                 <input 
                     type='text'
                     id='alignment'
@@ -603,7 +611,9 @@ export default function CharacterSheet(){
                     placeholder='Character Alignment'
                     onChange={e => setForm ({ ...form, alignment: e.target.value})}
                     />
-
+                    <h3>Alignment</h3>
+                </div>
+                <div className='background'>
                 <input 
                     type='text'
                     id='background'
@@ -611,7 +621,9 @@ export default function CharacterSheet(){
                     placeholder='Character Background'
                     onChange={e => setForm ({ ...form, background: e.target.value})}
                     />
-                
+                    <h3>Background</h3>
+                </div>
+                <div className='level'>
                 <input 
                     type='number'
                     id='level'
@@ -619,6 +631,8 @@ export default function CharacterSheet(){
                     placeholder='Character Level'
                     onChange={e => setForm ({ ...form, level: e.target.value})}
                     />
+                    <h3>Level</h3>
+                </div>
             </div>
             <div className='character-stats'>
                <p>strength: {stats.strength}</p>

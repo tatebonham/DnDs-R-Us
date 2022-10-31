@@ -48,7 +48,10 @@ const handleSubmit = async e =>{
         return <Navigate to = "/mycharacters" />
     }
     return(
-        <div>
+        <div className="register-container">
+            <div className="register-form" >
+
+            
            <h1> Sign up to create a Bucket List </h1>
             {/* display msg if error occure */}
             <p> {msg}</p>
@@ -82,13 +85,15 @@ const handleSubmit = async e =>{
                         value = {password}
                         required
                     />
-                <button type="submit"><h2>Register</h2></button>
+                    <div>
+                        <button type="submit"><h2>Register</h2></button>
+                    </div>
             </form>
 
             <div>
                 <p>Have an account already? Click <Link to="/login"><u>here</u></Link> to log in.</p>
             </div>
-
+            </div>
         </div>
     )
 }
