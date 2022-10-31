@@ -83,13 +83,14 @@ export default function Spells(props){
                     <button {...getToggleProps()}>
                         {isExpanded ? `Spell Name: ${form.name}` : `Spell Name: ${form.name}`}
                     </button>
-                    <section {...getCollapseProps()}>Note: {form.note} 🙈</section>
+                    <section {...getCollapseProps()}>Note: {form.note} 🙈 <div><button onClick={edit} className='edit-button' >{editing ? 'save' : 'edit'}</button></div></section>
+                    
                 </div>
                 
             )
         } else{
             return(
-                <div>
+                <div className='editing-form'>
                     <form>
                         <input 
                             type='text'
@@ -116,7 +117,8 @@ export default function Spells(props){
                             
                         />
                     </form>
-                    <button onClick={deleteSpell} >delete</button>
+                    <button onClick={edit} className='edit-button'>{editing ? 'save' : 'edit'}</button>
+                    <button onClick={deleteSpell} className='edit-button' >delete</button>
                 </div>
             )
         }
@@ -143,7 +145,7 @@ export default function Spells(props){
     return(
         <div className='spell-line'>
             {msg}
-            {spellEdit()} <button onClick={edit} >{editing ? 'save' : 'edit'}</button>
+            {spellEdit()} 
             
         </div>
     )

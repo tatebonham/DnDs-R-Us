@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
+import useCollapse from 'react-collapsed'
 
 export default function Profs(props){
+    const { getCollapseProps, getToggleProps, isExpanded } = useCollapse()
     const [editing, setEditing] = useState(false)
     const [form, setForm] = useState({})
     const [msg, setMsg] = useState('')
@@ -75,8 +77,11 @@ export default function Profs(props){
     const profEdit = ()=>{
         if(editing === false){
             return(
-                <div>
-                    <p>Note: {form.note}</p>
+                <div className='expand-prof'>
+                    <button {...getToggleProps()} className='profnote'>
+                        {isExpanded ? `${form.note}` : `${form.note}`}
+                    </button>
+                    <section {...getCollapseProps()}><div><button onClick={edit} className='edit-button' >{editing ? 'save' : 'edit'}</button></div></section>       
                 </div>
             )
         } else{
@@ -92,6 +97,7 @@ export default function Profs(props){
                             
                         />
                     </form>
+                    <button onClick={edit} >{editing ? 'save' : 'edit'}</button>
                     <button onClick={deleteProf} >delete</button>
                 </div>
             )
@@ -119,7 +125,7 @@ export default function Profs(props){
     return(
         <div>
             {msg}
-            {profEdit()} <button onClick={edit} >{editing ? 'save' : 'edit'}</button>
+            {profEdit()} 
             
         </div>
     )

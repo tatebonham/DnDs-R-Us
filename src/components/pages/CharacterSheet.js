@@ -8,11 +8,11 @@ import Features from '../partials/Features'
 import Prof from '../partials/Prof'
 import Equipment from '../partials/Equipment'
 import React from 'react'
-import useCollapse from 'react-collapsed'
+
 
 
 export default function CharacterSheet(){
-    const { getCollapseProps, getToggleProps, isExpanded } = useCollapse()
+    
     const [active, setActive] = useState(false)
     const [edit, setEdit] = useState(false)
     const [hd, sethd] = useState({
@@ -882,21 +882,24 @@ export default function CharacterSheet(){
                     
             </div>
             <div className='proficiencies'>
-                    <h2>proficiencies and languages</h2>
-                    {profsList()}
                         <div  className='add-prof'>
                             <form onSubmit={handleProfSubmit} >
                                 <input 
                                     type='text'
                                     id='note'
-                                    placeholder='note'
+                                    placeholder='New Proficiency '
                                     value={profForm.note}
+                                    required
                                     onChange={e => setProfForm ({ ...profForm, note: e.target.value})}
                                 />
                                 
-                                <button type='submit'>Add Prof</button>
+                                <button type='submit'>Add Proficiency</button>
                             </form>
                 </div>
+                    <div className='prof-list'>
+                        {profsList()}
+                    </div>
+                    <h2 className='prof-text'>Proficiencies and Languages</h2>
             </div>
             <div className='equipment'>
                     <h2>Equipment</h2>
