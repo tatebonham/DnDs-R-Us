@@ -18,13 +18,16 @@ div{
     display: grid;
     grid-row-gap: 10px;
     grid-column-gap: 10px;
-    grid-template-columns: 200px 200px 400px 200px ;
-    grid-auto-rows: auto;
+    grid-template-columns: 200px 215px 400px 200px ;
+    grid-template-rows: 200px 100px 100px 600px 200px auto;
     grid-template-areas: 
     "header header info info" 
+    "header header combat prof"
     "stats skills combat prof"
-    
+    "stats skills combat prof"
     "attacksandweapons attacksandweapons attacksandweapons attacksandweapons"
+    "features equipment equipment equipment"
+    "spells spells spells spells"
     
     ;
     
@@ -32,6 +35,15 @@ div{
 
 .proficiencies{
     grid-area: prof;
+}
+.spells{
+    grid-area: spells;
+}
+.features{
+    grid-area: features;
+}
+.equipment{
+    grid-area: equipment;
 }
 .character-header{
     grid-area: header;
@@ -49,3 +61,68 @@ div{
     grid-area: attacksandweapons;
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+@mixin outerInputBox{
+    border: 2px;
+    border-color: black;
+    border-style: solid;
+
+}
+
+@mixin inputBox {
+    width: 25px;
+    background-color: white;
+    color: black;
+    border: 0px;
+    border-bottom: 2px;
+    border-color: black;
+    border-style: solid;
+    border-radius: 5px;
+    margin: 5px;
+    font-size: 20px;
+    justify-content: center;
+    text-align: center;
+}
+
+.skills {
+    .inspiration{
+        background-color: tan;
+        display: flex;
+        border: 2px;
+        border-style: solid;
+        height: 50px;
+        border-radius: 15px;
+        input {
+           @include inputBox();
+        }
+        align-items: center;
+    }
+    .skill-line {
+        margin: 0;
+        padding-bottom: 0px;
+        padding-top: 0px;
+        height: auto;
+        p{
+            margin: 0px;
+        }
+        button{
+            margin: 2px;
+            margin-right: 5px;
+            height: 17px;
+        }
+    }
+}
+
+.combat-info{
+    .top-row{
+        input{
+            @include inputBox();
+        }
+    }
+}

@@ -616,91 +616,97 @@ export default function CharacterSheet(){
                     />
             </div>
             <div className='skills'>
-                    <label htmlFor='inpiration'><h2>inpiration: </h2></label>
-                    <input 
-                        type='number'
-                        id='inpiration'
-                        value={form.inpiration}
-                        placeholder='inpiration'
-                        onChange={e => setForm ({ ...form, inpiration: e.target.value})}
-                    />
+                    <div className='inspiration'>
+                        <h2>
+                        <input 
+                            type='number'
+                            id='inspiration'
+                            value={form.inspiration}
+                            placeholder='0'
+                            inputmode='numeric'
+                            onChange={e => setForm ({ ...form, inspiration: e.target.value})}
+                        />
+                        - Inspiration 
+                        </h2>
+                    </div>
                     <h3>ProficiencyBonus: +{proficiencyBonus()}</h3>
                     <div className='skills-chart'>
-                        <div className='skill-line'>
-                            <button onClick={e => toggleSkill(e, 'acrobatics')}>{form.acrobatics ? 'Active' : 'Not Active'}</button>
-                            <p><u>{form.acrobatics ? skillPlus(Number(stats.dexterity)) : stats.dexterity}</u> - Acrobatics</p>
+                        <div className='skill-line'>       
+                            <p><button onClick={e => toggleSkill(e, 'acrobatics')} style={form.acrobatics ? {backgroundColor: '#1167b1'} : {backgroundColor: 'white'}} ></button>
+                            <u>{form.acrobatics ? skillPlus(Number(stats.dexterity)) : stats.dexterity}</u> - Acrobatics {'(Dex)'}</p>
                         </div>
                         <div className='skill-line'>
-                            <button onClick={e => toggleSkill(e, 'animalhandling')}>{form.animalhandling ? 'Active' : 'Not Active'}</button>
-                            <p><u>{form.animalhandling ?  skillPlus(Number(stats.wisdom)): stats.wisdom}</u> - animalhandling</p>
+                            <p><button onClick={e => toggleSkill(e, 'animalhandling')} style={form.animalhandling ? {backgroundColor: '#1167b1'} : {backgroundColor: 'white'}} ></button>
+                            <u>{form.animalhandling ?  skillPlus(Number(stats.wisdom)): stats.wisdom}</u> - Animal Handling {'(Str)'}</p>
                         </div>
                         <div className='skill-line'>
-                            <button onClick={e => toggleSkill(e, 'arcana')}>{form.arcana ? 'Active' : 'Not Active'}</button>
-                            <p><u>{form.arcana ?  skillPlus(Number(stats.intelligence)): stats.intelligence}</u> - arcana</p>
+                            <p><button onClick={e => toggleSkill(e, 'arcana')} style={form.arcana ? {backgroundColor: '#1167b1'} : {backgroundColor: 'white'}}></button>
+                            <u>{form.arcana ?  skillPlus(Number(stats.intelligence)): stats.intelligence}</u> - Arcana {'(Int)'}</p>
                         </div>
                         <div className='skill-line'>
-                            <button onClick={e => toggleSkill(e, 'athletics')}>{form.athletics ? 'Active' : 'Not Active'}</button>
-                            <p><u>{form.athletics ? skillPlus(Number(stats.strength)): stats.strength}</u> - athletics</p>
+                            <p><button onClick={e => toggleSkill(e, 'athletics')} style={form.athletics ? {backgroundColor: '#1167b1'} : {backgroundColor: 'white'}}></button>
+                            <u>{form.athletics ? skillPlus(Number(stats.strength)): stats.strength}</u> - Athletics {'(Str)'}</p>
                         </div>
                         <div className='skill-line'>
-                            <button onClick={e => toggleSkill(e, 'deception')}>{form.deception ? 'Active' : 'Not Active'}</button>
-                            <p><u>{form.deception ?  skillPlus(Number(stats.charisma)): stats.charisma}</u> - deception</p>
+                            <p><button onClick={e => toggleSkill(e, 'deception')} style={form.deception ? {backgroundColor: '#1167b1'} : {backgroundColor: 'white'}}></button>
+                            <u>{form.deception ?  skillPlus(Number(stats.charisma)): stats.charisma}</u> - Deception {'(Cha)'}</p>
                         </div>
                         <div className='skill-line'>
-                            <button onClick={e => toggleSkill(e, 'history')}>{form.history ? 'Active' : 'Not Active'}</button>
-                            <p><u>{form.history ?  skillPlus(Number(stats.intelligence)): stats.intelligence}</u> - history</p>
+                            <p><button onClick={e => toggleSkill(e, 'history')} style={form.history ? {backgroundColor: '#1167b1'} : {backgroundColor: 'white'}}></button>
+                            <u>{form.history ?  skillPlus(Number(stats.intelligence)): stats.intelligence}</u> - History {'(Int)'}</p>
                         </div>
                         <div className='skill-line'>
-                            <button onClick={e => toggleSkill(e, 'insight')}>{form.insight ? 'Active' : 'Not Active'}</button>
-                            <p><u>{form.insight ?  skillPlus(Number(stats.wisdom)): stats.wisdom}</u> - insight</p>
+                            <p><button onClick={e => toggleSkill(e, 'insight')} style={form.insight ? {backgroundColor: '#1167b1'} : {backgroundColor: 'white'}}></button>
+                            <u>{form.insight ?  skillPlus(Number(stats.wisdom)): stats.wisdom}</u> - Insight {'(Wis)'}</p>
                         </div>
                         <div className='skill-line'>
-                            <button onClick={e => toggleSkill(e, 'intimidation')}>{form.intimidation ? 'Active' : 'Not Active'}</button>
-                            <p><u>{form.intimidation ?  skillPlus(Number(stats.charisma)): stats.charisma}</u> - intimidation</p>
+                            <p><button onClick={e => toggleSkill(e, 'intimidation')} style={form.intimidation ? {backgroundColor: '#1167b1'} : {backgroundColor: 'white'}}></button>
+                            <u>{form.intimidation ?  skillPlus(Number(stats.charisma)): stats.charisma}</u> - Intimidation {'(Cha)'}</p>
                         </div>
                         <div className='skill-line'>
-                            <button onClick={e => toggleSkill(e, 'investigation')}>{form.investigation ? 'Active' : 'Not Active'}</button>
-                            <p><u>{form.investigation ?  skillPlus(Number(stats.intelligence)): stats.intelligence}</u> - investigation</p>
+                            <p><button onClick={e => toggleSkill(e, 'investigation')} style={form.investigation ? {backgroundColor: '#1167b1'} : {backgroundColor: 'white'}}></button>
+                            <u>{form.investigation ?  skillPlus(Number(stats.intelligence)): stats.intelligence}</u> - Investigation {'(Int)'}</p>
                         </div>
                         <div className='skill-line'>
-                            <button onClick={e => toggleSkill(e, 'medicine')}>{form.medicine ? 'Active' : 'Not Active'}</button>
-                            <p><u>{form.medicine ?  skillPlus(Number(stats.wisdom)): stats.wisdom}</u> - medicine</p>
+                            <p><button onClick={e => toggleSkill(e, 'medicine')} style={form.medicine ? {backgroundColor: '#1167b1'} : {backgroundColor: 'white'}}></button>
+                            <u>{form.medicine ?  skillPlus(Number(stats.wisdom)): stats.wisdom}</u> - Medicine {'(Wis)'}</p>
                         </div>
                         <div className='skill-line'>
-                            <button onClick={e => toggleSkill(e, 'nature')}>{form.nature ? 'Active' : 'Not Active'}</button>
-                            <p><u>{form.nature ?  skillPlus(Number(stats.intelligence)): stats.intelligence}</u> - nature</p>
+                            <p><button onClick={e => toggleSkill(e, 'nature')} style={form.nature ? {backgroundColor: '#1167b1'} : {backgroundColor: 'white'}}></button>
+                            <u>{form.nature ?  skillPlus(Number(stats.intelligence)): stats.intelligence}</u> - Nature {'(Int)'}</p>
                         </div>
                         <div className='skill-line'>
-                            <button onClick={e => toggleSkill(e, 'perception')}>{form.perception ? 'Active' : 'Not Active'}</button>
-                            <p><u>{form.perception ?  skillPlus(Number(stats.wisdom)): stats.wisdom}</u> - perception</p>
+                            <p><button onClick={e => toggleSkill(e, 'perception')} style={form.perception ? {backgroundColor: '#1167b1'} : {backgroundColor: 'white'}}></button>
+                            <u>{form.perception ?  skillPlus(Number(stats.wisdom)): stats.wisdom}</u> - Perception {'(Wis)'}</p>
                         </div>
                         <div className='skill-line'>
-                            <button onClick={e => toggleSkill(e, 'performance')}>{form.performance ? 'Active' : 'Not Active'}</button>
-                            <p><u>{form.performance ?  skillPlus(Number(stats.charisma)): stats.charisma}</u> - performance</p>
+                            <p><button onClick={e => toggleSkill(e, 'performance')} style={form.performance ? {backgroundColor: '#1167b1'} : {backgroundColor: 'white'}}></button>
+                            <u>{form.performance ?  skillPlus(Number(stats.charisma)): stats.charisma}</u> - Performance {'(Cha)'}</p>
                         </div>
                         <div className='skill-line'>
-                            <button onClick={e => toggleSkill(e, 'persuasion')}>{form.persuasion ? 'Active' : 'Not Active'}</button>
-                            <p><u>{form.persuasion ?  skillPlus(Number(stats.charisma)): stats.charisma}</u> - persuasion</p>
+                            <p><button onClick={e => toggleSkill(e, 'persuasion')} style={form.persuasion ? {backgroundColor: '#1167b1'} : {backgroundColor: 'white'}}></button>
+                            <u>{form.persuasion ?  skillPlus(Number(stats.charisma)): stats.charisma}</u> - Persuasion {'(Cha)'}</p>
                         </div>
                         <div className='skill-line'>
-                            <button onClick={e => toggleSkill(e, 'religion')}>{form.religion ? 'Active' : 'Not Active'}</button>
-                            <p><u>{form.religion ?  skillPlus(Number(stats.intelligence)): stats.intelligence}</u> - religion</p>
+                            <p><button onClick={e => toggleSkill(e, 'religion')} style={form.religion ? {backgroundColor: '#1167b1'} : {backgroundColor: 'white'}}></button>
+                            <u>{form.religion ?  skillPlus(Number(stats.intelligence)): stats.intelligence}</u> - Religion {'(Int)'}</p>
                         </div>
                         <div className='skill-line'>
-                            <button onClick={e => toggleSkill(e, 'sleight')}>{form.sleight ? 'Active' : 'Not Active'}</button>
-                            <p><u>{form.sleight ?  skillPlus(Number(stats.dexterity)): stats.dexterity}</u> - sleight</p>
+                            <p><button onClick={e => toggleSkill(e, 'sleight')} style={form.sleight ? {backgroundColor: '#1167b1'} : {backgroundColor: 'white'}}></button>
+                            <u>{form.sleight ?  skillPlus(Number(stats.dexterity)): stats.dexterity}</u> - Sleight of Hand {'(Dex)'}</p>
                         </div>
                         <div className='skill-line'>
-                            <button onClick={e => toggleSkill(e, 'stealth')}>{form.stealth ? 'Active' : 'Not Active'}</button>
-                            <p><u>{form.stealth ?  skillPlus(Number(stats.dexterity)): stats.dexterity}</u> - stealth</p>
+                            <p><button onClick={e => toggleSkill(e, 'stealth')} style={form.stealth ? {backgroundColor: '#1167b1'} : {backgroundColor: 'white'}}></button>
+                            <u>{form.stealth ?  skillPlus(Number(stats.dexterity)): stats.dexterity}</u> - Stealth {'(Dex)'}</p>
                         </div>
                         <div className='skill-line'>
-                            <button onClick={e => toggleSkill(e, 'survival')}>{form.survival ? 'Active' : 'Not Active'}</button>
-                            <p><u>{form.survival ?  skillPlus(Number(stats.wisdom)): stats.wisdom}</u> - survival</p>
+                            <p><button onClick={e => toggleSkill(e, 'survival')} style={form.survival ? {backgroundColor: '#1167b1'} : {backgroundColor: 'white'}}></button>
+                            <u>{form.survival ?  skillPlus(Number(stats.wisdom)): stats.wisdom}</u> - Survival {'(Wis)'}</p>
                         </div>
                     </div>
             </div>
             <div className='combat-info'>
+                <div className='top-row'>
                     <label htmlFor='armor'><h2>armor: </h2></label>
                     <input 
                         type='number'
@@ -725,6 +731,7 @@ export default function CharacterSheet(){
                         placeholder='speed'
                         onChange={e => setForm ({ ...form, speed: e.target.value})}
                     />
+                </div>
                     <label htmlFor='maxhealth'><h2>maxhealth: </h2></label>
                     <input 
                         type='number'
@@ -1090,7 +1097,6 @@ export default function CharacterSheet(){
                         {spellsList(9)}
                     </div>
             </div>
-            
         </div>
     )
 }
