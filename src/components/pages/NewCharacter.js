@@ -9,7 +9,12 @@ export default function NewCharacter(){
         race: '',
         class: '',
         subclass: '',
-        level: 0
+        level: 1,
+        currenthealth: 0,
+        maximumhealth: 0,
+        temporaryhealth: 0,
+        currenthitdice: 0, 
+        img_url: ''
     })
     const navigate = useNavigate()
     
@@ -23,7 +28,7 @@ export default function NewCharacter(){
                     'Authorization': token
                 }
             }
-            setForm({...form, currenthealth: 0, temporaryhealth: 0, maximumhealth: 0, currenthitdice: 0})
+            setForm({...form,  })
             const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/users/characters`, form, options)
             console.log(response.data)
             console.log(form)

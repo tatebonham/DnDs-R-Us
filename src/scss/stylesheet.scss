@@ -10,24 +10,26 @@ div{
 .navbar{
     display: flex;
     justify-content: end;
+    margin-bottom: 10px;
 
 }
 
 .grid-container {
+    border: 0;
     justify-content: center;
     display: grid;
     grid-row-gap: 10px;
     grid-column-gap: 10px;
-    grid-template-columns: 200px 215px 400px 200px ;
-    grid-template-rows: 200px 100px 100px 600px 200px auto;
+    grid-template-columns: 225px 215px 400px 200px ;
+    grid-template-rows: auto 100px auto 100px 200px auto;
     grid-template-areas: 
-    "header header info info" 
-    "header header combat prof"
+    "header info info info" 
+    "header skills combat prof"
     "stats skills combat prof"
-    "stats skills combat prof"
-    "attacksandweapons attacksandweapons attacksandweapons attacksandweapons"
-    "features equipment equipment equipment"
-    "spells spells spells spells"
+    "stats attacksandweapons attacksandweapons prof"
+    "stats attacksandweapons attacksandweapons features"
+    "spells spells equipment features"
+    
     
     ;
     
@@ -285,5 +287,121 @@ input::-webkit-inner-spin-button {
                 background-color: red;
             }
         }
+    }
+}
+
+.character-header{
+    background-color: tan;
+    border-radius: 15px;
+    text-align: center;
+    div{
+        border: 0;
+        margin-top: 5px ;
+        margin-bottom: 5px ;
+    }
+    img{
+        border-radius: 100px;
+        margin-top: 5px;
+    }
+    input{
+        padding: 0;
+        margin-bottom: 2px;
+        font-size: 20px;
+        text-align: center;
+        width: 200px;
+        height: 50px;
+        border-radius: 15px;
+        background-color: white;
+    }
+    button{
+        border-radius:10px;
+        margin: 2px;
+    }
+    .delete{
+        background-color: #aaaaaa;
+        margin-bottom: 4px;
+    }
+}
+
+.modal {
+display: none; /* Hidden by default */
+position: fixed; /* Stay in place */
+z-index: 1; /* Sit on top */
+padding-top: 100px; /* Location of the box */
+left: 0;
+top: 0;
+width: 100%; /* Full width */
+height: 100%; /* Full height */
+overflow: auto; /* Enable scroll if needed */
+background-color: rgb(0,0,0); /* Fallback color */
+background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+font-size: 25px;
+background-color: #fefefe;
+margin: auto;
+padding: 20px;
+border: 1px solid #888;
+width: 80%;
+text-align: center;
+height: 110px;
+font-weight: bold;
+}
+
+/* The Close Button */
+.close {
+color: #aaaaaa;
+float: right;
+font-size: 28px;
+font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+color: #000;
+text-decoration: none;
+cursor: pointer;
+}
+
+.expand{
+    border: 0;
+    text-align: center;
+    button{
+        background-color: white;
+        width: 600px;
+        height: 25px;
+    }
+}
+.expand-spell{
+    border: 0;
+    text-align: center;
+    
+    section{
+        text-align: center;
+        background-color: tan;
+        height: auto;
+        margin-left: 15px;
+        margin-right: 15px;
+    }
+    button{
+        background-color: white;
+        font-size: 18px;
+        width: 425px;
+        height: 25px;
+    }
+}
+
+.spells{
+    div{
+        margin-bottom: 5px;
+        margin-top: 5px;
+    }
+    .spell-row{
+        border: 0;
+    }
+    .spell-line{
+        border: 0;
     }
 }

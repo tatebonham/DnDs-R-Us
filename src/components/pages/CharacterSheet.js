@@ -7,8 +7,13 @@ import Attacks from '../partials/Attacks'
 import Features from '../partials/Features'
 import Prof from '../partials/Prof'
 import Equipment from '../partials/Equipment'
+import React from 'react'
+import useCollapse from 'react-collapsed'
 
 export default function CharacterSheet(){
+    const { getCollapseProps, getToggleProps, isExpanded } = useCollapse()
+    const [active, setActive] = useState(false)
+    const [edit, setEdit] = useState(false)
     const [hd, sethd] = useState({
         amount: ''
     })
@@ -525,31 +530,45 @@ export default function CharacterSheet(){
         }
         
     }
+    const editing = e =>{
+        e.preventDefault()
+        if(edit === true){
+            setEdit(false)
+        } else {
+            setEdit(true)
+        }
+    }
+    const activeModal = e =>{
+        e.preventDefault()
+        if(active === true){
+            setActive(false)
+        } else {
+            setActive(true)
+        }
+    }
+
 
     return(
         <div className='grid-container'>
             {msg}
-            
-            {/* <button type='submit'>Save</button> */}
-            {/* <button onClick={deleteCharacter}>Delete</button> */}
             <div className='character-header'>
-            <form>
-                <img src={form.img_url} width={200} alt='Character Profile Picture' ></img>
-                <input 
+                <img src={form.img_url === undefined || form.img_url === '' ? 'https://cvhrma.org/wp-content/uploads/2015/07/default-profile-photo.jpg': form.img_url} width={200} alt='Character Profile Picture' ></img>
+                {edit ? <input 
                     type='text'
                     id='img_url'
                     value={form.img_url}
                     placeholder='Character img_url'
                     onChange={e => setForm ({ ...form, img_url: e.target.value})}
-                    />
-                <input 
+                    /> : <input 
                     type='text'
                     id='name'
                     value={form.name}
                     placeholder='Character Name'
                     onChange={e => setForm ({ ...form, name: e.target.value})}
-                    />
-                </form>
+                    />}
+                <button className='changepfp' onClick={editing} >{edit ? 'Save Image Link' : 'Change Image Link'}</button>
+                <br/>
+                <button className='delete' onClick={activeModal}>Delete Character</button>
             </div>
             <div className='character-info' >
                 <input 
@@ -814,7 +833,7 @@ export default function CharacterSheet(){
                                     type='string'
                                     id='totalhitdice'
                                     value={form.totalhitdice}
-                                    placeholder='Total Hit Dice'
+                                    placeholder='1d6'
                                     onChange={e => setForm ({ ...form, totalhitdice: e.target.value})}
                                 />
                             </div>
@@ -824,7 +843,7 @@ export default function CharacterSheet(){
                                     type='number'
                                     id='currenthitdice'
                                     value={form.currenthitdice}
-                                    placeholder='Current Hit Dice'
+                                    placeholder='0'
                                     onChange={e => setForm ({ ...form, currenthitdice: e.target.value})}
                                 />
                             </div>
@@ -985,11 +1004,11 @@ export default function CharacterSheet(){
                             <button type='submit'>Add Spell</button>
                         </form>
                     </div>
-                    <div className='level-zero-spells'>
+                    <div className='level-zero-spells spell-row'>
                         <h2>Cantrip</h2>
                         {spellsList(0)}
                     </div>
-                    <div className='level-one-spells'>
+                    <div className='level-one-spells spell-row'>
                         <form>
                             <label htmlFor='img_url'><h2>Level One Spells</h2></label>
                             <input 
@@ -1009,7 +1028,7 @@ export default function CharacterSheet(){
                         </form>
                         {spellsList(1)}
                     </div>
-                    <div className='level-two-spells'>
+                    <div className='level-two-spells spell-row'>
                         <form>
                             <h2>Level two Spells</h2>
                             <input 
@@ -1029,7 +1048,7 @@ export default function CharacterSheet(){
                         </form>
                         {spellsList(2)}
                     </div>
-                    <div className='level-three-spells'>
+                    <div className='level-three-spells spell-row'>
                         <form>
                             <h2>Level three Spells</h2>
                             <input 
@@ -1049,7 +1068,7 @@ export default function CharacterSheet(){
                         </form>
                         {spellsList(3)}
                     </div>
-                    <div className='level-four-spells'>
+                    <div className='level-four-spells spell-row'>
                         <form>
                             <h2>Level four Spells</h2>
                             <input 
@@ -1069,7 +1088,7 @@ export default function CharacterSheet(){
                         </form>
                         {spellsList(4)}
                     </div>
-                    <div className='level-five-spells'>
+                    <div className='level-five-spells spell-row'>
                         <form>
                             <h2>Level five Spells</h2>
                             <input 
@@ -1089,7 +1108,7 @@ export default function CharacterSheet(){
                         </form>
                         {spellsList(5)}
                     </div>
-                    <div className='level-six-spells'>
+                    <div className='level-six-spells spell-row'>
                         <form>
                             <h2>Level six Spells</h2>
                             <input 
@@ -1109,7 +1128,7 @@ export default function CharacterSheet(){
                         </form>
                         {spellsList(6)}
                     </div>
-                    <div className='level-seven-spells'>
+                    <div className='level-seven-spells spell-row'>
                         <form>
                             <h2>Level seven Spells</h2>
                             <input 
@@ -1129,7 +1148,7 @@ export default function CharacterSheet(){
                         </form>
                         {spellsList(7)}
                     </div>
-                    <div className='level-eight-spells'>
+                    <div className='level-eight-spells spell-row'>
                         <form>
                             <h2>Level eight Spells</h2>
                             <input 
@@ -1149,7 +1168,7 @@ export default function CharacterSheet(){
                         </form>
                         {spellsList(8)}
                     </div>
-                    <div className='level-nine-spells'>
+                    <div className='level-nine-spells spell-row'>
                         <form>
                             <h2>Level nine Spells</h2>
                             <input 
@@ -1169,6 +1188,13 @@ export default function CharacterSheet(){
                         </form>
                         {spellsList(9)}
                     </div>
+            </div>
+            <div id="myModal" class="modal" style={active? {display: 'block'} : {display: 'none'} }>
+                <div class="modal-content">
+                    <p>Are you sure you want to delete this character?</p>
+                    <button className='close' onClick={activeModal} >Cancel</button>
+                    <button className='close' onClick={deleteCharacter} >Delete</button>
+                </div>
             </div>
         </div>
     )

@@ -1,8 +1,10 @@
 // import { useParams } from 'react-router-dom' 
 import { useEffect, useState } from 'react'
 import axios from 'axios'
+import useCollapse from 'react-collapsed'
 
 export default function Weapons(props){
+    const { getCollapseProps, getToggleProps, isExpanded } = useCollapse()
     const [editing, setEditing] = useState(false)
     const [form, setForm] = useState({})
     const [msg, setMsg] = useState('')
@@ -76,8 +78,12 @@ export default function Weapons(props){
     const weaponEdit = ()=>{
         if(editing === false){
             return(
-                <div>
-                    <p>Name: {form.name}, Damage: {form.damage}, Type: {form.type}, Note: {form.note}</p>
+                <div className='expand'>
+                    <button {...getToggleProps()}>
+                        {isExpanded ? `Weapon Name: ${form.name}  |  Damage Amount: ${form.damage}  |  Damage Type: ${form.type}` : `Weapon Name: ${form.name}  |  Damage Amount: ${form.damage}  | Damage Type: ${form.type}`}
+                    </button>
+                    <section {...getCollapseProps()}>Note: {form.note} 🙈</section>
+                    <p></p>
                 </div>
             )
         } else{

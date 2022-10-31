@@ -1,11 +1,13 @@
 // import { useParams } from 'react-router-dom' 
 import { useEffect, useState } from 'react'
 import axios from 'axios'
+import useCollapse from 'react-collapsed'
 
 export default function Spells(props){
     const [editing, setEditing] = useState(false)
     const [form, setForm] = useState({})
     const [msg, setMsg] = useState('')
+    const { getCollapseProps, getToggleProps, isExpanded } = useCollapse()
 
     const deleteSpellRoute = async () =>{
         try {
@@ -77,9 +79,13 @@ export default function Spells(props){
     const spellEdit = ()=>{
         if(editing === false){
             return(
-                <div>
-                    <p>Level: {form.level}, Name: {form.name}, Note: {form.note}</p>
+                <div className='expand-spell'>
+                    <button {...getToggleProps()}>
+                        {isExpanded ? `Spell Name: ${form.name}` : `Spell Name: ${form.name}`}
+                    </button>
+                    <section {...getCollapseProps()}>Note: {form.note} 🙈</section>
                 </div>
+                
             )
         } else{
             return(
@@ -135,7 +141,7 @@ export default function Spells(props){
     
 
     return(
-        <div>
+        <div className='spell-line'>
             {msg}
             {spellEdit()} <button onClick={edit} >{editing ? 'save' : 'edit'}</button>
             
