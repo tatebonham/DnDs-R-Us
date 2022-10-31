@@ -23,7 +23,7 @@ export default function NewCharacter(){
                     'Authorization': token
                 }
             }
-
+            setForm({...form, currenthealth: 0, temporaryhealth: 0, maximumhealth: 0})
             const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/users/characters`, form, options)
             console.log(response.data)
             console.log(form)

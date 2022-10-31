@@ -9,6 +9,9 @@ import Prof from '../partials/Prof'
 import Equipment from '../partials/Equipment'
 
 export default function CharacterSheet(){
+    const [hd, sethd] = useState({
+        amount: ''
+    })
     const [profForm, setProfForm] = useState({
         note: ''
     })
@@ -491,6 +494,37 @@ export default function CharacterSheet(){
             return `${proficiencyBonus() + skill}`
         }
     }
+    const healFor = e =>{
+        e.preventDefault()
+        if(hd.amount === null || hd.amount === 0 ){
+            return 
+        } else {
+            const heal = Number(form.currenthealth) + Number(hd.amount)
+            setForm({...form, currenthealth: heal})
+            sethd({amount: ''})
+        }
+    }
+    const damageFor = e =>{
+        e.preventDefault()
+        if(hd.amount === null || hd.amount === 0 ){
+            return 
+        } else if (form.temporaryhealth >= 1){
+            let amount = Number(hd.amount)
+            let temphp = Number(form.temporaryhealth)
+            if((temphp - amount) <= 0){
+                amount -= temphp
+                temphp = 0
+                const damage = Number(form.currenthealth) - amount
+                setForm({...form, currenthealth: damage, temporaryhealth: ''})
+                sethd({amount: ''})
+            }
+        } else {
+            const damage = Number(form.currenthealth) - Number(hd.amount)
+            setForm({...form, currenthealth: damage})
+            sethd({amount: ''})
+        }
+        
+    }
 
     return(
         <div className='grid-container'>
@@ -623,7 +657,6 @@ export default function CharacterSheet(){
                             id='inspiration'
                             value={form.inspiration}
                             placeholder='0'
-                            inputmode='numeric'
                             onChange={e => setForm ({ ...form, inspiration: e.target.value})}
                         />
                         - Inspiration 
@@ -705,75 +738,109 @@ export default function CharacterSheet(){
                             <p><button onClick={e => toggleSkill(e, 'survival')} style={form.survival ? {backgroundColor: '#1167b1'} : {backgroundColor: 'white'}}></button>
                             <u>{form.survival ?  skillPlus(Number(stats.wisdom)): stats.wisdom}</u> - Survival {'(Wis)'}</p>
                         </div>
+                        <div className='skill-text'>
+                            <h3>Skills</h3>
+                        </div>
                     </div>
             </div>
             <div className='combat-info'>
                 <div className='top-row'>
-                    <label htmlFor='armor'><h2>armor: </h2></label>
-                    <input 
-                        type='number'
-                        id='armor'
-                        value={form.armor}
-                        placeholder='armor'
-                        onChange={e => setForm ({ ...form, armor: e.target.value})}
-                    />
-                    <label htmlFor='initiative'><h2>initiative: </h2></label>
-                    <input 
-                        type='number'
-                        id='initiative'
-                        value={form.initiative}
-                        placeholder='initiative'
-                        onChange={e => setForm ({ ...form, initiative: e.target.value})}
-                    />
-                    <label htmlFor='speed'><h2>speed: </h2></label>
-                    <input 
-                        type='number'
-                        id='speed'
-                        value={form.speed}
-                        placeholder='speed'
-                        onChange={e => setForm ({ ...form, speed: e.target.value})}
-                    />
+                    <div className='top-row-col'>
+                        <input 
+                            type='number'
+                            id='armor'
+                            value={form.armor}
+                            placeholder='0'
+                            onChange={e => setForm ({ ...form, armor: e.target.value})}
+                        />
+                        <h2>Armor</h2>
+                    </div>
+                    <div className='top-row-col'>
+                        <input 
+                            type='number'
+                            id='initiative'
+                            value={form.initiative}
+                            placeholder='0'
+                            onChange={e => setForm ({ ...form, initiative: e.target.value})}
+                            />
+                        <h2>Initiative</h2>
+                    </div>
+                    <div className='top-row-col'>
+                        <input 
+                            type='number'
+                            id='speed'
+                            value={form.speed}
+                            placeholder='0'
+                            onChange={e => setForm ({ ...form, speed: e.target.value})}
+                        />
+                        <h2>Speed</h2>
+                    </div>
                 </div>
-                    <label htmlFor='maxhealth'><h2>maxhealth: </h2></label>
-                    <input 
-                        type='number'
-                        id='maxhealth'
-                        value={form.maxhealth}
-                        placeholder='maxhealth'
-                        onChange={e => setForm ({ ...form, maxhealth: e.target.value})}
-                    />
-                    <label htmlFor='temporaryhealth'><h2>temporaryhealth: </h2></label>
-                    <input 
-                        type='number'
-                        id='temporaryhealth'
-                        value={form.temporaryhealth}
-                        placeholder='temporaryhealth'
-                        onChange={e => setForm ({ ...form, temporaryhealth: e.target.value})}
-                    />
-                    <label htmlFor='currenthealth'><h2>currenthealth: </h2></label>
-                    <input 
-                        type='number'
-                        id='currenthealth'
-                        value={form.currenthealth}
-                        placeholder='currenthealth'
-                        onChange={e => setForm ({ ...form, currenthealth: e.target.value})}
-                    />
-                    <label htmlFor='totalhitdice'><h2>totalhitdice: </h2></label>
-                    <input 
-                        type='number'
-                        id='totalhitdice'
-                        value={form.totalhitdice}
-                        placeholder='totalhitdice'
-                        onChange={e => setForm ({ ...form, totalhitdice: e.target.value})}
-                    />
-                    <label htmlFor='currenthitdice'><h2>currenthitdice: </h2></label>
-                    <input 
-                        type='number'
-                        id='currenthitdice'
-                        value={form.currenthitdice}
-                        placeholder='currenthitdice'
-                        onChange={e => setForm ({ ...form, currenthitdice: e.target.value})}
-                    />
+                    <div className='max-health'>
+                        <h2>Maximum Health Points - </h2>
+                        <input 
+                            type='number'
+                            id='maxhealth'
+                            value={form.maxhealth}
+                            placeholder='0'
+                            onChange={e => setForm ({ ...form, maxhealth: e.target.value})}
+                        />
+                    </div>
+                    <div className='temp-health'>
+                        <input 
+                            type='number'
+                            id='temporaryhealth'
+                            value={form.temporaryhealth}
+                            placeholder='0'
+                            onChange={e => setForm ({ ...form, temporaryhealth: e.target.value})}
+                        />
+                        <h2> - Temporary Health</h2>
+                    </div>
+                    <div className='current-health'>
+                        <input 
+                            type='number'
+                            id='currenthealth'
+                            value={form.currenthealth}
+                            placeholder='0'
+                            onChange={e => setForm ({ ...form, currenthealth: e.target.value})}
+                        />
+                        <h2>Current Health</h2>
+                    </div>
+                    <div className='bottom-row' >
+                        <div className='hit-dice'>
+                            <h2>Total Hit Dice: </h2>
+                            <input 
+                                type='string'
+                                id='totalhitdice'
+                                value={form.totalhitdice}
+                                placeholder='Total Hit Dice'
+                                onChange={e => setForm ({ ...form, totalhitdice: e.target.value})}
+                            />
+                            <h2>Current Hit Dice: </h2>
+                            <input 
+                                type='number'
+                                id='currenthitdice'
+                                value={form.currenthitdice}
+                                placeholder='Current Hit Dice'
+                                onChange={e => setForm ({ ...form, currenthitdice: e.target.value})}
+                            />
+                        </div>
+                        <div className='heal-damage'>
+                                <div>
+                                    <input 
+                                        type='number'
+                                        id='hd'
+                                        value={hd.amount}
+                                        placeholder='Total Hit Dice'
+                                        onChange={e => sethd ({ ...hd, amount: e.target.value})}
+                                        />
+                                </div>
+                                <button onClick={healFor}>Heal For</button>
+                                <button onClick={damageFor}>Damage For</button>
+                            
+                        </div>
+                    </div>
+                    
             </div>
             <div className='proficiencies'>
                     <h2>proficiencies and languages</h2>
