@@ -40,7 +40,7 @@ export default function MyCharacters(){
     })
 
     return(
-        <div>
+        <div className='chars-container'>
             <Link  to='/newcharacter'>Create a Character</Link>
             {msg}
             {characterList}

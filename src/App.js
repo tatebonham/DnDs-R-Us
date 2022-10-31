@@ -24,7 +24,7 @@ function App() {
   }, [])
 
   return (
-    <div>
+    <div className='routes'>
           <BrowserRouter>
             <NavBar currentUser={currentUser} setCurrentUser={setCurrentUser}/>
             <Routes>

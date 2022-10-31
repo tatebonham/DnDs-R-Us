@@ -10,6 +10,7 @@ import Equipment from '../partials/Equipment'
 import React from 'react'
 import useCollapse from 'react-collapsed'
 
+
 export default function CharacterSheet(){
     const { getCollapseProps, getToggleProps, isExpanded } = useCollapse()
     const [active, setActive] = useState(false)
@@ -353,7 +354,7 @@ export default function CharacterSheet(){
             return form.spells.map((spell, i) =>{
                 if(level === spell.level){
                     return(
-                        <div key={spell._id} >
+                        <div key={spell._id} className='spell-list-item'>
                             <Spells getCharacter={getCharacter}  spell={spell} index={i} characterId={id} />
                         </div>
                     )
@@ -553,6 +554,7 @@ export default function CharacterSheet(){
             {msg}
             <div className='character-header'>
                 <img src={form.img_url === undefined || form.img_url === '' ? 'https://cvhrma.org/wp-content/uploads/2015/07/default-profile-photo.jpg': form.img_url} width={200} alt='Character Profile Picture' ></img>
+
                 {edit ? <input 
                     type='text'
                     id='img_url'
@@ -1189,8 +1191,8 @@ export default function CharacterSheet(){
                         {spellsList(9)}
                     </div>
             </div>
-            <div id="myModal" class="modal" style={active? {display: 'block'} : {display: 'none'} }>
-                <div class="modal-content">
+            <div id="myModal" className="modal" style={active? {display: 'block'} : {display: 'none'} }>
+                <div className="modal-content">
                     <p>Are you sure you want to delete this character?</p>
                     <button className='close' onClick={activeModal} >Cancel</button>
                     <button className='close' onClick={deleteCharacter} >Delete</button>

@@ -98,5 +98,6 @@ A MERN stack application to allow individual users to create characters, customi
 
 - MERN (Mongoose, Express, React, Node.js)
 - Axios
-- CSS: SCSS
+- CSS: SASS/SCSS
 - HTML
+- React-Collapsed

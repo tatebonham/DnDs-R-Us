@@ -1,7 +1,10 @@
 import { Link } from "react-router-dom"
+import logo from '../images/logo.JPG'
+import { useNavigate } from "react-router-dom"
 
 
 export default function NavBar({currentUser, setCurrentUser}){
+    const navigate = useNavigate()
     // event handler to log the user out when needed
     const handleLogout = () => {
     // check to see if a token exists in local storage
@@ -15,24 +18,46 @@ export default function NavBar({currentUser, setCurrentUser}){
 
     const loggedIn = (
         <>
-        <Link to = "/mycharacters"> My Characters</Link> {'|'}
-        <Link to ="/"> <span onClick={handleLogout}>Log Out </span></Link> 
+        <div className="link-item">
+            <Link to = "/dmscreen" style={{textDecoration: 'none'}}> <p>DM Screen</p></Link> 
+        </div>
+        <div className="link-item">
+            <Link to = "/mycharacters" style={{textDecoration: 'none'}}> <p>My Characters</p></Link> 
+        </div>
+        <div className="link-item">
+            <Link to ="/" style={{textDecoration: 'none'}}> <span onClick={handleLogout}><p>Log Out</p> </span></Link> 
+        </div>
         </>
     )
 
     const loggedOut =(
         <>
-        <Link to= "/register"> Sign Up </Link> {'|'}
-        <Link to= "/login"> Log In</Link> 
+        <div className="link-item">
+            <Link to= "/register" style={{textDecoration: 'none'}}> <p>Sign Up</p> </Link>
+        </div>
+        <div className="link-item">
+            <Link to= "/login" style={{textDecoration: 'none'}} ><p>Log In</p></Link> 
+        </div>
         </>
 
     )
+    const goHome = e =>{
+        e.preventDefault()
+        navigate('/')
+    }
 
     return(
         <nav>
             <div className="navbar">
-                <Link to ="/"> Home </Link> {'|'}
-                {currentUser ? loggedIn : loggedOut}
+                <div className='logo' >
+                    <img src={logo} alt='Character Profile Picture' onClick={goHome}></img>
+                    <h1 onClick={goHome}>DnDs"R"Us</h1>
+                </div>
+                <div className="links">
+                    <div className="link-div">
+                        {currentUser ? loggedIn : loggedOut}
+                    </div>
+                </div>
             </div>
         </nav>
     )
