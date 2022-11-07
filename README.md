@@ -6,6 +6,16 @@ Be it player or dungeon master, keep track of your characters and campaigns at D
 
 A MERN stack application to allow individual users to create characters, customize them and keep track with your on going campaign.
 
+## Deployement Instructions
+1. Fork and clone repository 
+2. In your terminal run <npm install>  (this will install all needed packages)
+3. You will want to install a couple of files for functionality
+    - In  your terminal touch <.git.ignore> and <.env>
+    - To your git ignore file add: node_modules and .env
+    - In your .env file you will need to add an ENC_KEY
+        -ex: ENC_KEY = "super secret password string"
+4. Run NPM start and start your coding 
+
 ## Wireframe
 
 - Landing page - Users first screen when routing to the website
